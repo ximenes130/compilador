@@ -5,9 +5,7 @@
  */
 package br.com.compiladorn;
 
-import br.com.compiladorn.analisadorlexico.GeradorAnalisadorLexico;
 import br.com.compiladorn.gui.AnalisadorLexicoGui;
-import java.io.File;
 
 /**
  *
