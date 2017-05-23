@@ -267,91 +267,26 @@ public class AnalisadorLexicoGui extends javax.swing.JFrame {
     private void analisarCodigo() throws IOException{
         String path = this.jTextAreaEntrada.getText();
         String resultado = "";
-        int linha = 1;
         
-        AnalisadorLexico aLex;
-        aLex = new AnalisadorLexico(new StringReader(path));
+        AnalisadorLexico analisadoLexico;
+        analisadoLexico = new AnalisadorLexico(new StringReader(path));
         
         while (true) {
-            Token token = aLex.yylex();
-            if (token == null) {
-                System.out.println(resultado);
+            LexemaPOJO lexema = analisadoLexico.next();
+            
+            if (lexema == null) {
+                //System.out.println(resultado);
                 jTextAreaSaida.setText(resultado);
 
                 return;
             }
-            switch (token) {
-
-                case OPERADOR_ARITMETICO:
-                    resultado = resultado + "Linha: " + linha + "<Operador_Aritmético> " + aLex.lexeme + "\n";
-                    break;
-
-                case OPERADOR_LOGICO:
-                    resultado = resultado + "Linha: " + linha + "<Operador_Lógico> " + aLex.lexeme + "\n";
-                    break;
-
-                case ATRIBUICAO:
-                    resultado = resultado + "Linha: " + linha + "<Operador_Atribuição> " + aLex.lexeme + "\n";
-                    break;
-                case FIM_COMANDO:
-                    resultado = resultado + "Linha: " + linha + "<Fim_comando> " + aLex.lexeme + "\n";
-                    break;
-                case OPERADOR_RELACIONAL:
-                    resultado = resultado + "Linha: " + linha + "<Operador_Relacional> " + aLex.lexeme + "\n";
-                    break;
-
-                case COMENTARIO:
-                    resultado = resultado + "Linha: " + linha + "<Comentario> " + aLex.lexeme + "\n";
-                    break;
-
-                case LINHA:
-                    break;
-
-                case ERROR:                  
-                    resultado = resultado + "Erro na linha " + linha + ": Símbolo não reconhecido: " + aLex.lexeme + "\n";
-                    break;
-
-                case ID:
-                    resultado = resultado + "Linha: " + linha + "<ID> " + aLex.lexeme + "\n";
-                    break;
-
-                case NUMEROS_REIAS:
-                    resultado = resultado + "Linha: " + linha + "<Numeros_reais> " + aLex.lexeme + "\n";
-                    break;
-                case TEXTO:
-                    resultado = resultado + "Linha: " + linha + "<Texto> " + aLex.lexeme + "\n";
-                    break;
-                case THEN:
-                    resultado = resultado + "Linha: " + linha + "<Então> " + aLex.lexeme + "\n";
-                    break;
-                case WHILE:
-                    resultado = resultado + "Linha: " + linha + "<Laço> " + aLex.lexeme + "\n";
-                    break;
-                case FOR:
-                    resultado = resultado + "Linha: " + linha + "<Laço> " + aLex.lexeme + "\n";
-                    break;
-                case IF:
-                    resultado = resultado + "Linha: " + linha + "<Condicional> " + aLex.lexeme + "\n";
-                    break;
-                case NUMEROS_NATURAIS:
-                    resultado = resultado + "Linha: " + linha + "<Numero> " + aLex.lexeme + "\n";
-                    break;
-
-                case INICIO_BLOCO:
-                    resultado = resultado + "Linha: " + linha + "<Inicio_algoritmo>" + aLex.lexeme + "\n";
-                    break;
-                case BRANCO:
-                    //resultado = resultado + "Linha: " + cont + "<Fim_algoritmo>" + lexical.lexeme + "\n";
-                    break;
-                case FIM_BLOCO:
-                    resultado = resultado + "Linha: " + linha + "<Fim_algoritmo>" + aLex.lexeme + "\n";
-                    break;
-
-                default:
-                    resultado = resultado + "Linha: " + linha + "<" + aLex.lexeme + ">" + linha++;
-                    break;
+            
+            if((lexema.getToken() != Token.LINHA)&&(lexema.getToken() != Token.BRANCO)){
+                resultado = resultado.concat("Token:"+ lexema.getToken()
+                        +" -  Lexema:"+ lexema.getText()
+                        +" -  Linha:"+ lexema.getLinha()
+                        +" -  Coluna:"+ lexema.getColuna() +"\n");
             }
-            linha++;
         }
     }
     
