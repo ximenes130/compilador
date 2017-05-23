@@ -295,7 +295,7 @@ public class AnalisadorLexicoGui extends javax.swing.JFrame {
     private void jButtonArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonArquivoActionPerformed
         fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Arquivos txt", "txt"));
+        fileChooser.setFileFilter(new FileNameExtensionFilter(".txt ou .n", "txt", "n"));
         int i = fileChooser.showSaveDialog(null);
         String resul = "";
         
