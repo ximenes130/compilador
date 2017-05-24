@@ -9,8 +9,37 @@ package br.com.compiladorn.analisadorlexico;
  *
  * @author ximenes
  */
+
 public enum Token {
-    ID,OPERADOR_ARITMETICO,NUMEROS_NATURAIS,TEXTO,NUMEROS_REIAS,OPERADOR_LOGICO, 
-    OPERADOR_RELACIONAL,INICIO_BLOCO,FIM_BLOCO,ATRIBUICAO,THEN,IF,FOR,WHILE, 
-    COMENTARIO,LINHA,ERROR,FIM_COMANDO,BRANCO,EXPOENTE,FIM_LINHA
+    ID("ID"),
+    OPERADOR_ARITMETICO("OPERADOR_ARITMETICO"),
+    NUMEROS_NATURAIS("NUMEROS_NATURAIS"),
+    TEXTO("TEXTO"),
+    NUMEROS_REIAS("NUMEROS_REIAS"),
+    OPERADOR_LOGICO("OPERADOR_LOGICO"),
+    OPERADOR_RELACIONAL("OPERADOR_RELACIONAL"),
+    INICIO_BLOCO("INICIO_BLOCO"),
+    FIM_BLOCO("FIM_BLOCO"),
+    ATRIBUICAO("ATRIBUICAO"),
+    THEN("THEN"),
+    IF("IF"),
+    FOR("FOR"),
+    WHILE("WHILE"),
+    COMENTARIO("COMENTARIO"),
+    LINHA("LINHA"),
+    ERROR("ERROR"),
+    FIM_COMANDO("FIM_COMANDO"),
+    BRANCO("BRANCO"),
+    EXPOENTE("EXPOENTE"),
+    FIM_LINHA("FIM_LINHA");
+    
+    private String name;
+
+    private Token (String s){
+        this.name = s;
+    }
+
+    public String getName(){
+        return this.name;
+    }
 }
