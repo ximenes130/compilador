@@ -6,22 +6,15 @@
 package br.com.compiladorn.gui;
 
 import br.com.compiladorn.analisadorlexico.*;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.StringReader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import static javax.xml.transform.OutputKeys.ENCODING;
 
 /**
  *
@@ -100,6 +93,7 @@ public class AnalisadorLexicoGui extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(64, 196, 255));
         jPanel4.setBorder(null);
+        jPanel4.setPreferredSize(new java.awt.Dimension(330, 350));
 
         jTextAreaEntrada.setColumns(20);
         jTextAreaEntrada.setRows(5);
@@ -119,7 +113,7 @@ public class AnalisadorLexicoGui extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,6 +126,7 @@ public class AnalisadorLexicoGui extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(64, 196, 255));
         jPanel6.setBorder(null);
+        jPanel6.setPreferredSize(new java.awt.Dimension(250, 350));
 
         jTextAreaSaida.setColumns(20);
         jTextAreaSaida.setRows(5);
@@ -146,7 +141,7 @@ public class AnalisadorLexicoGui extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -180,7 +175,7 @@ public class AnalisadorLexicoGui extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -188,8 +183,8 @@ public class AnalisadorLexicoGui extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonAnalisar)
                 .addContainerGap())
@@ -245,7 +240,7 @@ public class AnalisadorLexicoGui extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 490, Short.MAX_VALUE)
+            .addGap(0, 696, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -274,98 +269,33 @@ public class AnalisadorLexicoGui extends javax.swing.JFrame {
     private void analisarCodigo() throws IOException{
         String path = this.jTextAreaEntrada.getText();
         String resultado = "";
-        int linha = 1;
         
-        AnalisadorLexico aLex;
-        aLex = new AnalisadorLexico(new StringReader(path));
+        AnalisadorLexico analisadoLexico;
+        analisadoLexico = new AnalisadorLexico(new StringReader(path));
         
         while (true) {
-            Token token = aLex.yylex();
-            if (token == null) {
-                System.out.println(resultado);
+            LexemaPOJO lexema = analisadoLexico.next();
+            
+            if (lexema == null) {
+                //System.out.println(resultado);
                 jTextAreaSaida.setText(resultado);
 
                 return;
             }
-            switch (token) {
-
-                case OPERADOR_ARITMETICO:
-                    resultado = resultado + "Linha: " + linha + "<Operador_Aritmético> " + aLex.lexeme + "\n";
-                    break;
-
-                case OPERADOR_LOGICO:
-                    resultado = resultado + "Linha: " + linha + "<Operador_Lógico> " + aLex.lexeme + "\n";
-                    break;
-
-                case ATRIBUICAO:
-                    resultado = resultado + "Linha: " + linha + "<Operador_Atribuição> " + aLex.lexeme + "\n";
-                    break;
-                case FIM_COMANDO:
-                    resultado = resultado + "Linha: " + linha + "<Fim_comando> " + aLex.lexeme + "\n";
-                    break;
-                case OPERADOR_RELACIONAL:
-                    resultado = resultado + "Linha: " + linha + "<Operador_Relacional> " + aLex.lexeme + "\n";
-                    break;
-
-                case COMENTARIO:
-                    resultado = resultado + "Linha: " + linha + "<Comentario> " + aLex.lexeme + "\n";
-                    break;
-
-                case LINHA:
-                    break;
-
-                case ERROR:                  
-                    resultado = resultado + "Erro na linha " + linha + ": Símbolo não reconhecido: " + aLex.lexeme + "\n";
-                    break;
-
-                case ID:
-                    resultado = resultado + "Linha: " + linha + "<ID> " + aLex.lexeme + "\n";
-                    break;
-
-                case NUMEROS_REIAS:
-                    resultado = resultado + "Linha: " + linha + "<Numeros_reais> " + aLex.lexeme + "\n";
-                    break;
-                case TEXTO:
-                    resultado = resultado + "Linha: " + linha + "<Texto> " + aLex.lexeme + "\n";
-                    break;
-                case THEN:
-                    resultado = resultado + "Linha: " + linha + "<Então> " + aLex.lexeme + "\n";
-                    break;
-                case WHILE:
-                    resultado = resultado + "Linha: " + linha + "<Laço> " + aLex.lexeme + "\n";
-                    break;
-                case FOR:
-                    resultado = resultado + "Linha: " + linha + "<Laço> " + aLex.lexeme + "\n";
-                    break;
-                case IF:
-                    resultado = resultado + "Linha: " + linha + "<Condicional> " + aLex.lexeme + "\n";
-                    break;
-                case NUMEROS_NATURAIS:
-                    resultado = resultado + "Linha: " + linha + "<Numero> " + aLex.lexeme + "\n";
-                    break;
-
-                case INICIO_BLOCO:
-                    resultado = resultado + "Linha: " + linha + "<Inicio_algoritmo>" + aLex.lexeme + "\n";
-                    break;
-                case BRANCO:
-                    //resultado = resultado + "Linha: " + cont + "<Fim_algoritmo>" + lexical.lexeme + "\n";
-                    break;
-                case FIM_BLOCO:
-                    resultado = resultado + "Linha: " + linha + "<Fim_algoritmo>" + aLex.lexeme + "\n";
-                    break;
-
-                default:
-                    resultado = resultado + "Linha: " + linha + "<" + aLex.lexeme + ">" + linha++;
-                    break;
+            
+            if((lexema.getToken() != Token.LINHA)&&(lexema.getToken() != Token.BRANCO)){
+                resultado = resultado.concat("Token:"+ lexema.getToken()
+                        +" -  Lexema:"+ lexema.getText()
+                        +" -  Linha:"+ lexema.getLinha()
+                        +" -  Coluna:"+ lexema.getColuna() +"\n");
             }
-            linha++;
         }
     }
     
     private void jButtonArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonArquivoActionPerformed
         fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Arquivos txt", "txt"));
+        fileChooser.setFileFilter(new FileNameExtensionFilter(".txt ou .n", "txt", "n"));
         int i = fileChooser.showSaveDialog(null);
         String resul = "";
         
