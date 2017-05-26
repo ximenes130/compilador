@@ -37,23 +37,24 @@ public class AnalisadorLexico {
    * Translates characters to character classes
    */
   private static final String ZZ_CMAP_PACKED = 
-    "\11\0\1\24\1\2\1\25\1\25\1\1\22\0\1\24\3\0\1\41"+
-    "\1\0\1\15\3\0\1\0\1\0\1\12\2\0\1\0\1\4\1\5"+
-    "\1\3\1\6\1\13\1\16\1\17\1\10\2\11\1\0\1\22\1\0"+
-    "\1\23\47\0\1\33\1\26\1\0\1\32\1\27\2\0\1\40\1\30"+
-    "\1\34\1\35\2\0\1\36\1\0\1\31\2\0\1\37\3\0\1\20"+
-    "\1\14\1\21\7\0\1\25\32\0\1\24\u05bf\0\12\7\206\0\12\7"+
-    "\306\0\12\7\u019c\0\12\7\166\0\12\7\166\0\12\7\166\0\12\7"+
-    "\166\0\12\7\166\0\12\7\166\0\12\7\166\0\12\7\166\0\12\7"+
-    "\166\0\12\7\140\0\12\7\166\0\12\7\106\0\12\7\u0116\0\12\7"+
-    "\106\0\12\7\u05e6\0\1\24\u015f\0\12\7\46\0\12\7\u012c\0\12\7"+
-    "\200\0\12\7\246\0\12\7\6\0\12\7\266\0\12\7\126\0\12\7"+
-    "\206\0\12\7\6\0\12\7\u03a6\0\13\24\35\0\1\25\1\25\5\0"+
-    "\1\24\57\0\1\24\u0fa0\0\1\24\u761f\0\12\7\u02a6\0\12\7\46\0"+
-    "\12\7\306\0\12\7\26\0\12\7\126\0\12\7\u0196\0\12\7\u5316\0"+
-    "\12\7\u0586\0\12\7\u0bbc\0\12\7\200\0\12\7\74\0\12\7\220\0"+
-    "\12\7\u0116\0\12\7\u01d6\0\12\7\u0176\0\12\7\146\0\12\7\u0216\0"+
-    "\12\7\u5176\0\12\7\346\0\12\7\u6c74\0\62\7\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\u280f\0";
+    "\11\0\1\32\1\2\1\35\1\35\1\1\22\0\1\32\5\0\1\17"+
+    "\1\0\1\22\1\23\1\34\1\11\1\14\1\11\1\0\1\33\1\4"+
+    "\1\5\1\3\1\6\1\15\1\20\1\21\1\12\2\13\1\0\1\24"+
+    "\1\0\1\25\7\0\1\10\37\0\1\41\1\26\1\0\1\40\1\31"+
+    "\2\0\1\44\1\36\1\42\1\27\2\0\1\30\1\0\1\37\2\0"+
+    "\1\43\3\0\1\22\1\16\1\23\7\0\1\35\32\0\1\32\u05bf\0"+
+    "\12\7\206\0\12\7\306\0\12\7\u019c\0\12\7\166\0\12\7\166\0"+
+    "\12\7\166\0\12\7\166\0\12\7\166\0\12\7\166\0\12\7\166\0"+
+    "\12\7\166\0\12\7\166\0\12\7\140\0\12\7\166\0\12\7\106\0"+
+    "\12\7\u0116\0\12\7\106\0\12\7\u05e6\0\1\32\u015f\0\12\7\46\0"+
+    "\12\7\u012c\0\12\7\200\0\12\7\246\0\12\7\6\0\12\7\266\0"+
+    "\12\7\126\0\12\7\206\0\12\7\6\0\12\7\u03a6\0\13\32\35\0"+
+    "\1\35\1\35\5\0\1\32\57\0\1\32\u0fa0\0\1\32\u761f\0\12\7"+
+    "\u02a6\0\12\7\46\0\12\7\306\0\12\7\26\0\12\7\126\0\12\7"+
+    "\u0196\0\12\7\u5316\0\12\7\u0586\0\12\7\u0bbc\0\12\7\200\0\12\7"+
+    "\74\0\12\7\220\0\12\7\u0116\0\12\7\u01d6\0\12\7\u0176\0\12\7"+
+    "\146\0\12\7\u0216\0\12\7\u5176\0\12\7\346\0\12\7\u6c74\0\62\7"+
+    "\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\u280f\0";
 
   /** 
    * Translates characters to character classes
@@ -67,12 +68,12 @@ public class AnalisadorLexico {
 
   private static final String ZZ_ACTION_PACKED_0 =
     "\1\0\1\1\2\2\7\1\1\3\1\4\1\5\1\6"+
-    "\4\1\1\7\1\10\1\11\1\12\2\13\1\14\1\0"+
-    "\1\15\1\16\1\17\2\0\1\20\4\0\1\21\1\22"+
-    "\2\0\1\23\1\0\1\24\1\0\1\25";
+    "\5\1\1\7\1\10\1\11\2\12\1\13\1\0\1\14"+
+    "\1\15\1\16\2\0\1\17\1\20\6\0\1\21\1\22"+
+    "\4\0\1\23\1\0\1\20\1\24\1\0\1\12\1\25";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[46];
+    int [] result = new int[53];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -97,15 +98,16 @@ public class AnalisadorLexico {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\42\0\104\0\42\0\146\0\210\0\252\0\314"+
-    "\0\356\0\u0110\0\u0132\0\42\0\42\0\42\0\42\0\u0154"+
-    "\0\u0176\0\u0198\0\u01ba\0\u01dc\0\42\0\42\0\42\0\u01fe"+
-    "\0\u0220\0\252\0\u0242\0\u0242\0\42\0\42\0\u0264\0\u0286"+
-    "\0\42\0\u02a8\0\u02ca\0\u02ec\0\u030e\0\42\0\42\0\u0330"+
-    "\0\u0352\0\u02ec\0\314\0\42\0\u0374\0\42";
+    "\0\0\0\45\0\112\0\45\0\157\0\224\0\271\0\336"+
+    "\0\u0103\0\u0128\0\u014d\0\45\0\45\0\45\0\45\0\u0172"+
+    "\0\u0197\0\u01bc\0\u01e1\0\u0206\0\45\0\45\0\45\0\u022b"+
+    "\0\u0250\0\271\0\u0275\0\u0275\0\45\0\45\0\u029a\0\u02bf"+
+    "\0\45\0\u02e4\0\u0309\0\u032e\0\u0353\0\u0378\0\u039d\0\u03c2"+
+    "\0\45\0\45\0\u03e7\0\u040c\0\u0431\0\u0456\0\u039d\0\336"+
+    "\0\u0309\0\45\0\u047b\0\u0456\0\45";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[46];
+    int [] result = new int[53];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -128,26 +130,30 @@ public class AnalisadorLexico {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\2\1\3\1\4\1\5\1\6\1\7\2\2\1\10"+
+    "\1\2\1\3\1\4\1\5\1\6\1\7\4\2\1\10"+
     "\2\2\1\11\1\12\1\13\2\2\1\14\1\15\1\16"+
-    "\1\17\2\4\1\20\1\21\1\2\1\22\5\2\1\23"+
-    "\1\2\1\24\44\0\1\25\42\0\4\26\4\0\1\27"+
-    "\31\0\4\30\1\31\2\30\1\0\1\30\2\0\2\30"+
-    "\25\0\7\32\1\0\1\32\2\0\2\32\25\0\5\33"+
-    "\1\34\1\33\1\0\1\33\2\0\2\33\25\0\4\35"+
-    "\4\0\1\35\2\0\1\35\1\36\36\0\1\36\42\0"+
-    "\1\36\53\0\1\37\5\0\1\40\32\0\1\41\45\0"+
-    "\1\42\41\0\1\43\7\0\1\24\2\0\22\24\1\0"+
-    "\14\24\3\0\4\30\1\31\2\30\1\44\1\30\2\0"+
-    "\2\30\25\0\7\31\1\0\1\31\2\0\2\31\25\0"+
-    "\7\45\1\0\1\45\2\0\2\45\52\0\1\46\47\0"+
-    "\1\47\36\0\1\50\35\0\1\51\15\0\4\52\1\0"+
-    "\2\52\1\0\1\52\2\0\2\52\25\0\7\53\1\0"+
-    "\1\53\2\0\2\53\56\0\1\54\45\0\1\55\34\0"+
-    "\1\56\6\0";
+    "\1\17\1\20\2\2\1\21\1\4\1\22\1\2\1\4"+
+    "\1\2\1\23\3\2\1\24\1\2\47\0\1\25\45\0"+
+    "\4\26\6\0\1\27\32\0\4\30\1\31\2\0\2\30"+
+    "\1\0\1\30\2\0\2\30\26\0\5\32\2\0\2\32"+
+    "\1\0\1\32\2\0\2\32\26\0\5\33\2\0\1\34"+
+    "\1\33\1\0\1\33\2\0\2\33\26\0\4\35\6\0"+
+    "\1\35\2\0\1\35\1\36\41\0\1\36\45\0\1\36"+
+    "\54\0\1\37\1\0\1\40\41\0\1\41\51\0\1\42"+
+    "\1\43\50\0\1\44\44\0\1\45\7\0\4\30\1\31"+
+    "\1\46\1\0\2\30\1\47\1\30\2\0\2\30\26\0"+
+    "\5\31\1\46\1\0\2\31\1\0\1\31\2\0\2\31"+
+    "\26\0\5\50\2\0\2\50\1\0\1\50\2\0\2\50"+
+    "\53\0\1\51\52\0\1\52\6\0\1\42\2\0\32\42"+
+    "\1\0\7\42\34\43\1\53\10\43\41\0\1\54\34\0"+
+    "\1\55\24\0\1\56\36\0\4\57\3\0\2\57\1\0"+
+    "\1\57\2\0\2\57\26\0\5\60\2\0\2\60\1\0"+
+    "\1\60\2\0\2\60\23\0\33\43\1\61\1\53\10\43"+
+    "\42\0\1\62\46\0\1\63\3\0\5\64\2\0\2\64"+
+    "\1\0\1\64\2\0\2\64\64\0\1\65\3\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[918];
+    int [] result = new int[1184];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -186,11 +192,12 @@ public class AnalisadorLexico {
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
     "\1\0\1\11\1\1\1\11\7\1\4\11\5\1\3\11"+
-    "\3\1\1\0\1\1\2\11\2\0\1\11\4\0\2\11"+
-    "\2\0\1\1\1\0\1\11\1\0\1\11";
+    "\3\1\1\0\1\1\2\11\2\0\1\11\1\1\6\0"+
+    "\2\11\4\0\1\1\1\0\1\1\1\11\1\0\1\1"+
+    "\1\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[46];
+    int [] result = new int[53];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -300,7 +307,7 @@ public class AnalisadorLexico {
     char [] map = new char[0x110000];
     int i = 0;  /* index in packed string  */
     int j = 0;  /* index in unpacked array */
-    while (i < 366) {
+    while (i < 372) {
       int  count = packed.charAt(i++);
       char value = packed.charAt(i++);
       do map[j++] = value; while (--count > 0);
@@ -675,51 +682,51 @@ public class AnalisadorLexico {
             }
           case 27: break;
           case 7: 
-            { yytoken = COMENTARIO;          return getLexema();
+            { yytoken = LINHA;               return getLexema();
             }
           case 28: break;
           case 8: 
-            { yytoken = LINHA;               return getLexema();
+            { yytoken = OPERADOR_ARITMETICO; return getLexema();
             }
           case 29: break;
           case 9: 
-            { yytoken = OPERADOR_ARITMETICO; return getLexema();
+            { yytoken = EXPOENTE;            return getLexema();
             }
           case 30: break;
           case 10: 
-            { yytoken = EXPOENTE;            return getLexema();
+            { yytoken = NUMEROS_NATURAIS;    return getLexema();
             }
           case 31: break;
           case 11: 
-            { yytoken = NUMEROS_NATURAIS;    return getLexema();
+            { yytoken = ID;                  return getLexema();
             }
           case 32: break;
           case 12: 
-            { yytoken = ID;                  return getLexema();
+            { yytoken = TEXTO;               return getLexema();
             }
           case 33: break;
           case 13: 
-            { yytoken = TEXTO;               return getLexema();
+            { yytoken = OPERADOR_RELACIONAL; return getLexema();
             }
           case 34: break;
           case 14: 
-            { yytoken = OPERADOR_RELACIONAL; return getLexema();
+            { yytoken = OPERADOR_LOGICO;     return getLexema();
             }
           case 35: break;
           case 15: 
-            { yytoken = OPERADOR_LOGICO;     return getLexema();
+            { yytoken = IF;                  return getLexema();
             }
           case 36: break;
           case 16: 
-            { yytoken = IF;                  return getLexema();
+            { yytoken = COMENTARIO;          return getLexema();
             }
           case 37: break;
           case 17: 
-            { yytoken = FIM_COMANDO;         return getLexema();
+            { yytoken = FOR;                 return getLexema();
             }
           case 38: break;
           case 18: 
-            { yytoken = FOR;                 return getLexema();
+            { yytoken = FIM_COMANDO;         return getLexema();
             }
           case 39: break;
           case 19: 

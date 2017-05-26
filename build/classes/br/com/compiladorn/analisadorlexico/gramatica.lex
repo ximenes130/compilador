@@ -32,7 +32,7 @@ import static br.com.compiladorn.analisadorlexico.Token.*;
 LINHA               =  \r|\n|\r\n
 OPERADOR_ARITMETICO = 20|21|22|23       /* representando +,-,* e / respectivamente */
 ID                  = 1\d+
-NUMEROS_NATURAIS    = 0\d+
+NUMEROS_NATURAIS    = 0\d+(E[+-]\d+)?
 TEXTO               = 7(\d{3})*7        /* cada 3 digitos representa um caracter */
 NUMEROS_REIAS       = 0[0-9]+,[0-9]+
 EXPOENTE            = 24                
@@ -45,12 +45,14 @@ MAIOR               = 43
 MAIOR_IGUAL         = 44
 MENOR_IGUAL         = 45
 NAO                 = 46
-INICIO_BLOCO        = "{"
-FIM_BLOCO           = "}"
+INICIO_BLOCO        = "{"|"("
+FIM_BLOCO           = "}"|")"
 FIM_LINHA           = ";"
 ATRIBUICAO	    = "="
+FOR                 = "for"
+IF                  = "if"
 BRANCO		    = [\s\t\f]
-COMENTARIO          = "/*"[^]*"*/" | "//".*{LINHA}
+COMENTARIO          = "/*"[^]*"*/"|"//".*
 
 OPERADOR_RELACIONAL = {IGUAL}|{NAO_IGUAL}|{MENOR}|{MAIOR}|{MENOR_IGUAL}|{MAIOR_IGUAL}
 OPERADOR_LOGICO     = {OU}|{E}|{NAO}
@@ -75,6 +77,6 @@ OPERADOR_LOGICO     = {OU}|{E}|{NAO}
 {ATRIBUICAO}		{yytoken = ATRIBUICAO;          return getLexema();}
 {BRANCO}		{yytoken = BRANCO;              return getLexema();}
 {LINHA}			{yytoken = LINHA;               return getLexema();}
-(["$$"].*)		{yytoken = COMENTARIO;          return getLexema();}
+{COMENTARIO}		{yytoken = COMENTARIO;          return getLexema();}
 
 [^]                     {yytoken = ERROR;               return getLexema();}

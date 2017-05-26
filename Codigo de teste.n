@@ -1,0 +1,11 @@
+11 = 01;
+12 = 012;
+13 = 0123,123;
+14 = 01234;
+15 = 06E+66;
+
+for(11 46 40 14){
+    11 = 11 20 01;   // incrementando
+    if(11 43 12)
+        12 = 12 21 02;  // multiplicando quando o valor de 11 > com o do 12
+}
