@@ -7,6 +7,7 @@
             <file>file:/home/ximenes/Dev/compiladores/compilador/src/br/com/compiladorn/gui/AnalisadorLexicoGui.java</file>
             <file>file:/home/ximenes/Dev/compiladores/compilador/src/br/com/compiladorn/analisadorlexico/Token.java</file>
             <file>file:/home/ximenes/Dev/compiladores/compilador/src/br/com/compiladorn/Main.java</file>
+            <file>file:/home/ximenes/Dev/compiladores/compilador/src/br/com/compiladorn/analisadorlexico/gramatica.lex</file>
         </group>
     </open-files>
 </project-private>
