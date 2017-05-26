@@ -49,8 +49,10 @@ INICIO_BLOCO        = "{"
 FIM_BLOCO           = "}"
 FIM_LINHA           = ";"
 ATRIBUICAO	    = "="
+FOR                 = "for"
+IF                  = "if"
 BRANCO		    = [\s\t\f]
-COMENTARIO          = "/*"[^]*"*/" | "//".*{LINHA}
+COMENTARIO          = "/*"[^]*"*/"|"//".*{LINHA}
 
 OPERADOR_RELACIONAL = {IGUAL}|{NAO_IGUAL}|{MENOR}|{MAIOR}|{MENOR_IGUAL}|{MAIOR_IGUAL}
 OPERADOR_LOGICO     = {OU}|{E}|{NAO}
@@ -75,6 +77,6 @@ OPERADOR_LOGICO     = {OU}|{E}|{NAO}
 {ATRIBUICAO}		{yytoken = ATRIBUICAO;          return getLexema();}
 {BRANCO}		{yytoken = BRANCO;              return getLexema();}
 {LINHA}			{yytoken = LINHA;               return getLexema();}
-(["$$"].*)		{yytoken = COMENTARIO;          return getLexema();}
+{COMENTARIO}		{yytoken = COMENTARIO;          return getLexema();}
 
 [^]                     {yytoken = ERROR;               return getLexema();}
