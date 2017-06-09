@@ -13,6 +13,7 @@ import static br.com.compiladorn.analisadorlexico.Token.*;
 %column
 %function next           /* Renomeando funçao de busca */
 %type LexemaPOJO         /* Definindo tipo de retorno da busca */
+%cup                     /* Adicionando compatibilidade com CUP */
 
 %{
     public Token yytoken;
