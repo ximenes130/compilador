@@ -23,6 +23,7 @@ import static br.com.compiladorn.analisadorlexico.Token.*;
       
       lexema.setToken(this.yytoken);
       lexema.setText(this.yytext());
+      lexema.setCaracter(this.yychar);
       lexema.setLinha(this.yyline);
       lexema.setColuna(this.yycolumn);
       
@@ -46,8 +47,10 @@ MAIOR               = 43
 MAIOR_IGUAL         = 44
 MENOR_IGUAL         = 45
 NAO                 = 46
-INICIO_BLOCO        = "{"|"("
-FIM_BLOCO           = "}"|")"
+L_PARENTESIS        = "("
+R_PARENTESIS        = ")"
+L_CHAVE             = "{"
+R_CHAVE             = "}"
 FIM_LINHA           = ";"
 ATRIBUICAO	    = "="
 FOR                 = "for"
@@ -72,8 +75,10 @@ OPERADOR_LOGICO     = {OU}|{E}|{NAO}
 {OPERADOR_LOGICO}       {yytoken = OPERADOR_LOGICO;     return getLexema();}
 {OPERADOR_RELACIONAL}   {yytoken = OPERADOR_RELACIONAL; return getLexema();}
 {EXPOENTE}              {yytoken = EXPOENTE;            return getLexema();}
-{INICIO_BLOCO}          {yytoken = INICIO_BLOCO;        return getLexema();}
-{FIM_BLOCO}             {yytoken = FIM_BLOCO;           return getLexema();}
+{L_PARENTESIS}          {yytoken = L_PARENTESIS;        return getLexema();}
+{R_PARENTESIS}          {yytoken = R_PARENTESIS;        return getLexema();}
+{L_CHAVE}               {yytoken = L_CHAVE;             return getLexema();}
+{R_CHAVE}               {yytoken = R_CHAVE;             return getLexema();}
 {FIM_LINHA}		{yytoken = FIM_LINHA;           return getLexema();}
 {ATRIBUICAO}		{yytoken = ATRIBUICAO;          return getLexema();}
 {BRANCO}		{yytoken = BRANCO;              return getLexema();}

@@ -14,8 +14,17 @@ public class LexemaPOJO {
     private String text;
     private int linha;
     private int coluna;
+    private int caracter;
 
     public LexemaPOJO() {
+    }
+
+    public int getCaracter() {
+        return caracter;
+    }
+
+    public void setCaracter(int caracter) {
+        this.caracter = caracter;
     }
 
     public Token getToken() {
