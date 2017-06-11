@@ -6,8 +6,7 @@ import java.io.*;
 import br.com.compiladorn.analisadorlexico.Token.*;
 import br.com.compiladorn.analisadorlexico.LexemaPOJO;
 
-init with {: scanner.init();              :};
-scan with {: return scanner.next_token(); :};
+
 
 parser code {:
 
@@ -67,7 +66,8 @@ expressoes  ::=   expressoes expressao PVIRGULA
                 | expressao PVIRGULA
                 ;
 
-expressao   ::=   decl_variavel
+expressao   ::=  L_PARENTESIS expressao R_PARENTESIS
+                | decl_variavel
                 | chamar_funcao
                 | decl_funcao
                 | decl_atribuicoes
@@ -87,12 +87,12 @@ decl_repeticao  ::= FOR L_PARENTESIS decl_variavel PVIRGULA expressao_booleana P
 
 funcao_parametros ::= funcao_parametros BRANCO FUNCAO_PARAMETRO
                | FUNCAO_PARAMETRO
-               | 
+               | BRANCO
                ;
 
 decl_funcao_parametros ::= data_tipo DECL_FUNCAO_PARAMETRO PVIRGULA decl_funcao_parametros 
                     | data_tipo DECL_FUNCAO_PARAMETRO
-                    | 
+                    | BRANCO
                     ;
 
 decl_condicional ::= decl_condicional condicional
@@ -123,10 +123,8 @@ op_booleano ::= OU
                 | MAIOR_IGUAL
                 ;
 
-expressao_mat   ::= expressao_mat  expressao_mat
-                    | L_PARENTESIS expressao_mat R_PARENTESIS
-                    | expressao op_mat expressao
-                    ;
+expressao_mat   ::= expressao_mat expressao_mat
+                    | expressao op_mat expressao;
 
 op_mat   ::= OPERADOR_SOMA
             | OPERADOR_SUB 

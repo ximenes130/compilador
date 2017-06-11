@@ -19,6 +19,10 @@ public class GeradorParser {
             "Parser",
             "-symbols",
             "Sym",
+            "-expect",
+            "2",
+            "-destdir",
+            file.getParent(),
             file.getCanonicalPath()
         };
         
