@@ -10,19 +10,28 @@ package br.com.compiladorn.analisadorlexico;
  * @author ximenes
  */
 public class LexemaPOJO {
-    private Token token;
+    private int token;
     private String text;
     private int linha;
     private int coluna;
+    private int caracter;
 
     public LexemaPOJO() {
     }
 
-    public Token getToken() {
+    public int getCaracter() {
+        return caracter;
+    }
+
+    public void setCaracter(int caracter) {
+        this.caracter = caracter;
+    }
+
+    public int getToken() {
         return token;
     }
 
-    public void setToken(Token token) {
+    public void setToken(int token) {
         this.token = token;
     }
 

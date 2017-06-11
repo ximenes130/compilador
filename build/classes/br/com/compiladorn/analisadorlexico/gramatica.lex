@@ -3,24 +3,26 @@
 
 
 package br.com.compiladorn.analisadorlexico;
-import static br.com.compiladorn.analisadorlexico.Token.*;
+import java_cup.runtime.Symbol;
+import br.com.compiladorn.analisadorsintatico.Sym;
+import static br.com.compiladorn.analisadorsintatico.Sym.*;
+import java_cup.sym;
 %%
 
 
+%cup
 %class AnalisadorLexico
 %public
 %line
 %column
-%function next           /* Renomeando funçao de busca */
-%cup
 
 %{
-    public Token yytoken;
+    public int yysym;
 
     public LexemaPOJO getLexema(){
       LexemaPOJO lexema = new LexemaPOJO();
       
-      lexema.setToken(this.yytoken);
+      lexema.setToken(this.yysym);
       lexema.setText(this.yytext());
       lexema.setCaracter(this.yychar);
       lexema.setLinha(this.yyline);
@@ -29,17 +31,27 @@ import static br.com.compiladorn.analisadorlexico.Token.*;
       return lexema;
     }
 
-    public Simbol getSymbol(){
-        return new Symbol(yytoken.ordinal());
-    }   
+    public Symbol getSymbol(){
+        return new Symbol(yysym);
+    }  
+
+    public void printError(){
+        LexemaPOJO p = getLexema();
+
+        System.out.println("Erro léxico encontrado:"
+                + "    Texto = "      +   p.getText()
+                + "  | Caracter = "   +   p.getCaracter()
+                + "  | Linha = "      +   p.getLinha()
+                + "  | Coluna = "     +   p.getColuna()
+                );
+   } 
 %}
 
-LINHA               =  \r|\n|\r\n
 OPERADOR_SOMA       = 20
 OPERADOR_SUB        = 21
 OPERADOR_PROD       = 22
 OPERADOR_DIV        = 23
-VARIAVEL                  = 1\d+
+VARIAVEL            = 1\d+
 NUMEROS_NATURAIS    = 0\d+(E[+-]\d+)?
 TEXTO               = 7(\d{3})*7        /* cada 3 digitos representa um caracter */
 NUMEROS_REAIS       = 0[0-9]+,[0-9]+
@@ -57,7 +69,6 @@ L_PARENTESIS        = "("
 R_PARENTESIS        = ")"
 L_CHAVE             = "{"
 R_CHAVE             = "}"
-FIM_LINHA           = ";"
 ATRIBUICAO	    = "="
 FOR                 = "for"
 IF                  = "if"
@@ -65,35 +76,26 @@ PVIRGULA            = ";"
 BRANCO		    = [\s\t\f]
 COMENTARIO          = "/*"[^]*"*/"|"//".*
 
-OPERADOR_RELACIONAL = {IGUAL}|{NAO_IGUAL}|{MENOR}|{MAIOR}|{MENOR_IGUAL}|{MAIOR_IGUAL}
-OPERADOR_LOGICO     = {OU}|{E}|{NAO}
-
 %%
-"fim"			{yytoken = FIM_COMANDO;         return getSymbol();}
-"then"                  {yytoken = THEN;                return getSymbol();}
-{IF}                    {yytoken = IF;                  return getSymbol();}
-{FOR}                   {yytoken = FOR;                 return getSymbol();}
-"while"                 {yytoken = WHILE;               return getSymbol();}
-{VARIAVEL}              {yytoken = VARIAVEL;            return getSymbol();}
-{OPERADOR_SOMA}         {yytoken = OPERADOR_SOMA;       return getSymbol();}
-{OPERADOR_SUB}          {yytoken = OPERADOR_SUB;        return getSymbol();}
-{OPERADOR_PROD}         {yytoken = OPERADOR_PROD;       return getSymbol();}
-{OPERADOR_DIV}          {yytoken = OPERADOR_DIV;        return getSymbol();}
-{NUMEROS_NATURAIS}      {yytoken = NUMEROS_NATURAIS;    return getSymbol();}
-{TEXTO}                 {yytoken = TEXTO;               return getSymbol();}
-{NUMEROS_REAIS}         {yytoken = NUMEROS_REAIS;       return getSymbol();}
-{OPERADOR_LOGICO}       {yytoken = OPERADOR_LOGICO;     return getSymbol();}
-{OPERADOR_RELACIONAL}   {yytoken = OPERADOR_RELACIONAL; return getSymbol();}
-{EXPOENTE}              {yytoken = EXPOENTE;            return getSymbol();}
-{L_PARENTESIS}          {yytoken = L_PARENTESIS;        return getSymbol();}
-{R_PARENTESIS}          {yytoken = R_PARENTESIS;        return getSymbol();}
-{L_CHAVE}               {yytoken = L_CHAVE;             return getSymbol();}
-{R_CHAVE}               {yytoken = R_CHAVE;             return getSymbol();}
-{FIM_LINHA}		{yytoken = FIM_LINHA;           return getSymbol();}
-{ATRIBUICAO}		{yytoken = ATRIBUICAO;          return getSymbol();}
-{PVIRGULA}		{yytoken = PVIRGULA;            return getSymbol();}
-{BRANCO}		{yytoken = BRANCO;              return getSymbol();}
-{LINHA}			{yytoken = LINHA;               return getSymbol();}
-{COMENTARIO}		{yytoken = COMENTARIO;          return getSymbol();}
+{IF}                    {yysym = IF;                  return getSymbol();}
+{FOR}                   {yysym = FOR;                 return getSymbol();}
+"while"                 {yysym = WHILE;               return getSymbol();}
+{VARIAVEL}              {yysym = VARIAVEL;            return getSymbol();}
+{OPERADOR_SOMA}         {yysym = OPERADOR_SOMA;       return getSymbol();}
+{OPERADOR_SUB}          {yysym = OPERADOR_SUB;        return getSymbol();}
+{OPERADOR_PROD}         {yysym = OPERADOR_PROD;       return getSymbol();}
+{OPERADOR_DIV}          {yysym = OPERADOR_DIV;        return getSymbol();}
+{NUMEROS_NATURAIS}      {yysym = NUMEROS_NATURAIS;    return getSymbol();}
+{TEXTO}                 {yysym = TEXTO;               return getSymbol();}
+{NUMEROS_REAIS}         {yysym = NUMEROS_REAIS;       return getSymbol();}
+{EXPOENTE}              {yysym = EXPOENTE;            return getSymbol();}
+{L_PARENTESIS}          {yysym = L_PARENTESIS;        return getSymbol();}
+{R_PARENTESIS}          {yysym = R_PARENTESIS;        return getSymbol();}
+{L_CHAVE}               {yysym = L_CHAVE;             return getSymbol();}
+{R_CHAVE}               {yysym = R_CHAVE;             return getSymbol();}
+{ATRIBUICAO}		{yysym = ATRIBUICAO;          return getSymbol();}
+{PVIRGULA}		{yysym = PVIRGULA;            return getSymbol();}
+{BRANCO}		{yysym = BRANCO;              return getSymbol();}
+{COMENTARIO}		{}
 
-[^]                     {yytoken = ERROR;               return getSymbol();}
+[^]                     {printError();}

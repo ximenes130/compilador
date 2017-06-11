@@ -37,6 +37,8 @@ public enum Token {
     PVIRGULA("PVIRGULA"),
     BRANCO("BRANCO"),
     EXPOENTE("EXPOENTE"),
+    VARIAVEL("VARIAVEL"),
+    EOF("EOF"),
     FIM_LINHA("FIM_LINHA");
     
     private String name;

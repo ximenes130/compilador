@@ -6,6 +6,7 @@
 package br.com.compiladorn.gui;
 
 import br.com.compiladorn.analisadorlexico.*;
+import br.com.compiladorn.analisadorsintatico.Sym;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -89,8 +90,6 @@ public class AnalisadorLexicoGui extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(254, 254, 254));
-
         jPanel4.setBackground(new java.awt.Color(64, 196, 255));
         jPanel4.setBorder(null);
         jPanel4.setPreferredSize(new java.awt.Dimension(330, 350));
@@ -121,7 +120,7 @@ public class AnalisadorLexicoGui extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE))
         );
 
         jPanel6.setBackground(new java.awt.Color(64, 196, 255));
@@ -153,7 +152,7 @@ public class AnalisadorLexicoGui extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane4))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE))
         );
 
         jButtonAnalisar.setFont(new java.awt.Font("Roboto Mono Medium", 0, 12)); // NOI18N
@@ -173,7 +172,7 @@ public class AnalisadorLexicoGui extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonAnalisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -193,6 +192,11 @@ public class AnalisadorLexicoGui extends javax.swing.JFrame {
         jTextFieldGramatica.setBackground(new java.awt.Color(93, 64, 55));
         jTextFieldGramatica.setForeground(new java.awt.Color(224, 224, 224));
         jTextFieldGramatica.setEnabled(false);
+        jTextFieldGramatica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldGramaticaActionPerformed(evt);
+            }
+        });
 
         jLabel1.setBackground(new java.awt.Color(93, 64, 55));
         jLabel1.setFont(new java.awt.Font("Roboto Mono Medium", 0, 14)); // NOI18N
@@ -274,7 +278,8 @@ public class AnalisadorLexicoGui extends javax.swing.JFrame {
         analisadoLexico = new AnalisadorLexico(new StringReader(path));
         
         while (true) {
-            LexemaPOJO lexema = analisadoLexico.next();
+            analisadoLexico.next_token();
+            LexemaPOJO lexema = analisadoLexico.getLexema();
             
             if (lexema == null) {
                 //System.out.println(resultado);
@@ -283,8 +288,8 @@ public class AnalisadorLexicoGui extends javax.swing.JFrame {
                 return;
             }
             
-            if((lexema.getToken() != Token.LINHA)&&(lexema.getToken() != Token.BRANCO)){
-                resultado = resultado.concat("Token:"+ lexema.getToken()
+            if(lexema.getToken() != Sym.BRANCO){
+                resultado = resultado.concat("Token:"+ Sym.terminalNames[lexema.getToken()]
                         +" -  Lexema:"+ lexema.getText()
                         +" -  Linha:"+ lexema.getLinha()
                         +" -  Coluna:"+ lexema.getColuna() +"\n");
@@ -312,6 +317,10 @@ public class AnalisadorLexicoGui extends javax.swing.JFrame {
         jTextAreaEntrada.setText(resul);
         //jButtonAnalisar.setEnabled(gerarGramatica(fileChooser.getSelectedFile()));
     }//GEN-LAST:event_jButtonArquivoActionPerformed
+
+    private void jTextFieldGramaticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldGramaticaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldGramaticaActionPerformed
 
     private boolean gerarGramatica(File file){
         try{

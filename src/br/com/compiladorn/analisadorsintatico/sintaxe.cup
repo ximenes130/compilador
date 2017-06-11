@@ -1,26 +1,32 @@
 package br.com.compiladorn.analisadorsintatico;
-
-import java_cup.runtime.*;
-import java.util.*;
-import java.io.*;
-import br.com.compiladorn.analisadorlexico.Token.*;
-import br.com.compiladorn.analisadorlexico.LexemaPOJO;
-
-
+import java_cup.runtime.Symbol;
 
 parser code {:
 
+    public int linha;
+    public int coluna;
+    public String texto;
+    public String token;
+
+    @Override
     public void report_error(String message, Object info)  {
-        System.out.println("Warning - " + message);
+        System.out.println("Warning - " + message + " - " + ((Symbol) info).toString());
     }
 
+    @Override
     public void report_fatal_error(String message, Object info)  {
-        System.out.println("Error - " + message);
+        System.out.println("Error - " + message + " - " + info.toString());
         System.exit(-1);
     }
 
 :};
 
+init with {: 
+    linha = 0;
+    coluna = 0;
+    texto = "";
+    token = "";
+ :};
 
 
 /* ------------------------ Definindo simbolos terminais ------------------------ */
@@ -124,7 +130,8 @@ op_booleano ::= OU
                 ;
 
 expressao_mat   ::= expressao_mat expressao_mat
-                    | expressao op_mat expressao;
+                    | expressao op_mat expressao
+                    ;
 
 op_mat   ::= OPERADOR_SOMA
             | OPERADOR_SUB 
