@@ -6,8 +6,13 @@
 package br.com.compiladorn;
 
 import br.com.compiladorn.analisadorlexico.GeradorAnalisadorLexico;
+import br.com.compiladorn.analisadorlexico.Token;
+import br.com.compiladorn.analisadorsintatico.GeradorParser;
 import br.com.compiladorn.gui.AnalisadorLexicoGui;
 import java.io.File;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,7 +24,15 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        System.out.println("\n\n------  Gerando Aanalisador Léxico   ------\n");
         GeradorAnalisadorLexico.gerar(new File("/home/ximenes130/Dev/compiladores/compilador/src/br/com/compiladorn/analisadorlexico/gramatica.lex"));
+        
+        System.out.println("\n\n------  Gerando Aanalisador Sintático   ------\n");
+        try {
+            GeradorParser.gerar(new File("/home/ximenes130/Dev/compiladores/compilador/src/br/com/compiladorn/analisadorsintatico/sintaxe.cup"));
+        } catch (Exception ex) {
+            System.out.println(Arrays.toString(ex.getStackTrace()));
+        }
         
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {

@@ -24,61 +24,120 @@ parser code {:
 
 
 
-/* Definindo simbolos terminais */
+/* ------------------------ Definindo simbolos terminais ------------------------ */
 
-terminal PROGRAM_BEGUIN, PROGRAM_END, ID, OPERADOR_ARITMETICO, NUMEROS_NATURAIS,
-         TEXTO, NUMEROS_REIAS, OPERADOR_LOGICO, OPERADOR_RELACIONAL, INICIO_BLOCO,
-         FIM_BLOCO, ATRIBUICAO, THEN, IF, FOR, WHILE, COMENTARIO, LINHA, ERROR,
-         FIM_COMANDO, BRANCO, EXPOENTE, FIM_LINHA;
-
-
-/* Definindo simbolos não-terminais */
-
-non terminal program, statements, statement, statement_function;
-non terminal decl_variable, decl_call_function, decl_call_params, decl_params, decl_function, decl_if;
-non terminal decl_boolean,decl_assignments, decl_assignment;
-non terminal params_type, data_types;
+terminal PROGRAM_BEGIN, PROGRAM_END, VARIAVEL, NUMEROS_NATURAIS, 
+         TEXTO, NUMEROS_REAIS, ELSE, L_PARENTESIS,
+         R_PARENTESIS, L_CHAVE, R_CHAVE, ATRIBUICAO, IF, FOR, WHILE, 
+         BRANCO, EXPOENTE,
+         FUNCAO_PARAMETRO, DECL_FUNCAO_PARAMETRO, OPERADOR_PROD, OPERADOR_DIV,
+         OPERADOR_SOMA, OPERADOR_SUB, PVIRGULA, FUNCAO, OU, E, IGUAL, NAO_IGUAL,
+         MENOR, MAIOR, MENOR_IGUAL, MAIOR_IGUAL; 
 
 
-/* Definindo preferencia em caso de ambiguidade */
 
-precedence left PLUS, MINUS;
-precedence left TIMES, DIVIDE, MOD;
+/* ------------------------ Definindo simbolos não-terminais ------------------------ */
 
-start with program;
+non terminal programa, expressoes, expressao, chamar_funcao, decl_funcao, funcao_parametros,
+             decl_funcao_parametros, decl_condicional, condicional, decl_atribuicoes, 
+             decl_atribuicao, expressao_booleana, op_booleano, expressao_mat, 
+             decl_variavel, data_tipo, op_mat, decl_repeticao;
 
-/* The grammar */
-expr_list ::= expr_list expr_part 
-	      | 
-              expr_part;
 
-expr_part ::= expr:e 
-	      {: System.out.println("= " + e); :} 
-              SEMI              
-	      ;
 
-expr      ::= expr:e1 PLUS expr:e2    
-	      {: RESULT = new Integer(e1.intValue() + e2.intValue()); :} 
-	      | 
-              expr:e1 MINUS expr:e2    
-              {: RESULT = new Integer(e1.intValue() - e2.intValue()); :} 
-	      | 
-              expr:e1 TIMES expr:e2 
-	      {: RESULT = new Integer(e1.intValue() * e2.intValue()); :} 
-	      | 
-              expr:e1 DIVIDE expr:e2 
-	      {: RESULT = new Integer(e1.intValue() / e2.intValue()); :} 
-	      | 
-              expr:e1 MOD expr:e2 
-	      {: RESULT = new Integer(e1.intValue() % e2.intValue()); :} 
-	      | 
-              NUMBER:n                 
-	      {: RESULT = n; :} 
-	      | 
-              MINUS expr:e             
-	      {: RESULT = new Integer(0 - e.intValue()); :} 
-	      %prec UMINUS
-	      | 
-              LPAREN expr:e RPAREN     
-	      {: RESULT = e; :} 
-	      ;
+/* ------------------------ Definindo preferencia em caso de ambiguidade ------------------------ */
+
+precedence left L_PARENTESIS, R_PARENTESIS, 
+                VARIAVEL, IF, FOR, WHILE, FUNCAO,
+                EXPOENTE, OPERADOR_PROD, OPERADOR_DIV, OPERADOR_SOMA, OPERADOR_SUB,
+                E, OU, IGUAL, NAO_IGUAL, MENOR, MAIOR, MENOR_IGUAL, MAIOR_IGUAL,
+                NUMEROS_NATURAIS, TEXTO, NUMEROS_REAIS
+                ;
+
+
+
+/* ------------------------ Definindo a Gramática ------------------------ */
+
+start with programa;
+
+
+programa    ::= PROGRAM_BEGIN expressoes PROGRAM_END;
+
+expressoes  ::=   expressoes expressao PVIRGULA
+                | expressao PVIRGULA
+                ;
+
+expressao   ::=   decl_variavel
+                | chamar_funcao
+                | decl_funcao
+                | decl_atribuicoes
+                | decl_condicional
+                | expressao_mat
+                | decl_repeticao
+                | data_tipo
+                ;
+
+chamar_funcao ::= FUNCAO L_PARENTESIS funcao_parametros R_PARENTESIS L_CHAVE expressoes R_CHAVE;
+
+decl_funcao ::= FUNCAO L_PARENTESIS decl_funcao_parametros R_PARENTESIS L_CHAVE expressoes R_CHAVE;
+
+decl_repeticao  ::= FOR L_PARENTESIS decl_variavel PVIRGULA expressao_booleana PVIRGULA expressao R_PARENTESIS L_CHAVE expressoes R_CHAVE
+                    | WHILE L_PARENTESIS expressao_booleana R_PARENTESIS L_CHAVE expressoes R_CHAVE
+                    ;
+
+funcao_parametros ::= funcao_parametros BRANCO FUNCAO_PARAMETRO
+               | FUNCAO_PARAMETRO
+               | 
+               ;
+
+decl_funcao_parametros ::= data_tipo DECL_FUNCAO_PARAMETRO PVIRGULA decl_funcao_parametros 
+                    | data_tipo DECL_FUNCAO_PARAMETRO
+                    | 
+                    ;
+
+decl_condicional ::= decl_condicional condicional
+                     | condicional
+                     ;
+
+condicional     ::= IF expressao_booleana L_CHAVE expressoes R_CHAVE
+                    | IF expressao_booleana L_CHAVE expressoes R_CHAVE ELSE L_CHAVE expressoes R_CHAVE;
+
+decl_atribuicoes ::= decl_atribuicoes decl_atribuicao 
+                     | decl_atribuicao
+                     ;
+
+decl_atribuicao ::= VARIAVEL ATRIBUICAO expressao;
+
+expressao_booleana  ::= expressao_booleana op_booleano expressao_booleana
+                        | L_PARENTESIS expressao_booleana R_PARENTESIS
+                        | expressao op_booleano expressao
+                        ;
+
+op_booleano ::= OU
+                | E
+                | IGUAL
+                | NAO_IGUAL
+                | MENOR
+                | MAIOR
+                | MENOR_IGUAL
+                | MAIOR_IGUAL
+                ;
+
+expressao_mat   ::= expressao_mat  expressao_mat
+                    | L_PARENTESIS expressao_mat R_PARENTESIS
+                    | expressao op_mat expressao
+                    ;
+
+op_mat   ::= OPERADOR_SOMA
+            | OPERADOR_SUB 
+            | OPERADOR_PROD
+            | OPERADOR_DIV
+            | EXPOENTE
+            ;
+
+decl_variavel   ::= VARIAVEL data_tipo PVIRGULA;
+
+data_tipo   ::= NUMEROS_NATURAIS
+                | TEXTO
+                | NUMEROS_REAIS
+                ;

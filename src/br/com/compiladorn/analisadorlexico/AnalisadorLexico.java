@@ -68,13 +68,13 @@ public class AnalisadorLexico implements java_cup.runtime.Scanner {
 
   private static final String ZZ_ACTION_PACKED_0 =
     "\1\0\1\1\2\2\7\1\1\3\1\4\1\5\1\6"+
-    "\1\7\1\10\5\1\1\11\1\12\1\13\2\14\1\15"+
-    "\1\0\1\16\1\17\1\20\2\0\1\21\1\22\6\0"+
-    "\1\23\1\24\4\0\1\25\1\0\1\22\1\26\1\0"+
-    "\1\14\1\27";
+    "\1\7\1\10\5\1\1\11\1\12\1\13\1\14\1\15"+
+    "\1\16\2\17\1\20\1\0\1\21\1\22\1\23\2\0"+
+    "\1\24\1\25\6\0\1\26\1\27\4\0\1\30\1\0"+
+    "\1\25\1\31\1\0\1\17\1\32";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[55];
+    int [] result = new int[58];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -102,13 +102,14 @@ public class AnalisadorLexico implements java_cup.runtime.Scanner {
     "\0\0\0\47\0\116\0\47\0\165\0\234\0\303\0\352"+
     "\0\u0111\0\u0138\0\u015f\0\47\0\47\0\47\0\47\0\47"+
     "\0\47\0\u0186\0\u01ad\0\u01d4\0\u01fb\0\u0222\0\47\0\47"+
-    "\0\47\0\u0249\0\u0270\0\303\0\u0297\0\u0297\0\47\0\47"+
-    "\0\u02be\0\u02e5\0\47\0\u030c\0\u0333\0\u035a\0\u0381\0\u03a8"+
-    "\0\u03cf\0\u03f6\0\47\0\47\0\u041d\0\u0444\0\u046b\0\u0492"+
-    "\0\u03cf\0\352\0\u0333\0\47\0\u04b9\0\u0492\0\47";
+    "\0\47\0\47\0\47\0\47\0\u0249\0\u0270\0\303\0\u0297"+
+    "\0\u0297\0\47\0\47\0\u02be\0\u02e5\0\47\0\u030c\0\u0333"+
+    "\0\u035a\0\u0381\0\u03a8\0\u03cf\0\u03f6\0\47\0\47\0\u041d"+
+    "\0\u0444\0\u046b\0\u0492\0\u03cf\0\352\0\u0333\0\47\0\u04b9"+
+    "\0\u0492\0\47";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[55];
+    int [] result = new int[58];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -135,24 +136,24 @@ public class AnalisadorLexico implements java_cup.runtime.Scanner {
     "\2\2\1\11\1\12\1\13\2\2\1\14\1\15\1\16"+
     "\1\17\1\20\1\21\1\22\2\2\1\23\1\4\1\24"+
     "\1\2\1\4\1\2\1\25\3\2\1\26\1\2\51\0"+
-    "\1\27\47\0\4\30\6\0\1\31\34\0\4\32\1\33"+
-    "\2\0\2\32\1\0\1\32\2\0\2\32\30\0\5\34"+
-    "\2\0\2\34\1\0\1\34\2\0\2\34\30\0\5\35"+
-    "\2\0\1\36\1\35\1\0\1\35\2\0\2\35\30\0"+
-    "\4\37\6\0\1\37\2\0\1\37\1\40\43\0\1\40"+
-    "\47\0\1\40\60\0\1\41\1\0\1\42\43\0\1\43"+
-    "\53\0\1\44\1\45\52\0\1\46\46\0\1\47\7\0"+
-    "\4\32\1\33\1\50\1\0\2\32\1\51\1\32\2\0"+
-    "\2\32\30\0\5\33\1\50\1\0\2\33\1\0\1\33"+
-    "\2\0\2\33\30\0\5\52\2\0\2\52\1\0\1\52"+
-    "\2\0\2\52\57\0\1\53\54\0\1\54\6\0\1\44"+
-    "\2\0\34\44\1\0\7\44\36\45\1\55\10\45\43\0"+
-    "\1\56\36\0\1\57\24\0\1\60\40\0\4\61\3\0"+
-    "\2\61\1\0\1\61\2\0\2\61\30\0\5\62\2\0"+
-    "\2\62\1\0\1\62\2\0\2\62\25\0\35\45\1\63"+
-    "\1\55\10\45\44\0\1\64\50\0\1\65\3\0\5\66"+
-    "\2\0\2\66\1\0\1\66\2\0\2\66\70\0\1\67"+
-    "\3\0";
+    "\1\27\47\0\1\30\1\31\1\32\1\33\6\0\1\34"+
+    "\34\0\4\35\1\36\2\0\2\35\1\0\1\35\2\0"+
+    "\2\35\30\0\5\37\2\0\2\37\1\0\1\37\2\0"+
+    "\2\37\30\0\5\40\2\0\1\41\1\40\1\0\1\40"+
+    "\2\0\2\40\30\0\4\42\6\0\1\42\2\0\1\42"+
+    "\1\43\43\0\1\43\47\0\1\43\60\0\1\44\1\0"+
+    "\1\45\43\0\1\46\53\0\1\47\1\50\52\0\1\51"+
+    "\46\0\1\52\7\0\4\35\1\36\1\53\1\0\2\35"+
+    "\1\54\1\35\2\0\2\35\30\0\5\36\1\53\1\0"+
+    "\2\36\1\0\1\36\2\0\2\36\30\0\5\55\2\0"+
+    "\2\55\1\0\1\55\2\0\2\55\57\0\1\56\54\0"+
+    "\1\57\6\0\1\47\2\0\34\47\1\0\7\47\36\50"+
+    "\1\60\10\50\43\0\1\61\36\0\1\62\24\0\1\63"+
+    "\40\0\4\64\3\0\2\64\1\0\1\64\2\0\2\64"+
+    "\30\0\5\65\2\0\2\65\1\0\1\65\2\0\2\65"+
+    "\25\0\35\50\1\66\1\60\10\50\44\0\1\67\50\0"+
+    "\1\70\3\0\5\71\2\0\2\71\1\0\1\71\2\0"+
+    "\2\71\70\0\1\72\3\0";
 
   private static int [] zzUnpackTrans() {
     int [] result = new int[1248];
@@ -193,13 +194,13 @@ public class AnalisadorLexico implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\11\1\1\1\11\7\1\6\11\5\1\3\11"+
+    "\1\0\1\11\1\1\1\11\7\1\6\11\5\1\6\11"+
     "\3\1\1\0\1\1\2\11\2\0\1\11\1\1\6\0"+
     "\2\11\4\0\1\1\1\0\1\1\1\11\1\0\1\1"+
     "\1\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[55];
+    int [] result = new int[58];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -287,7 +288,11 @@ public class AnalisadorLexico implements java_cup.runtime.Scanner {
       lexema.setColuna(this.yycolumn);
       
       return lexema;
-  }
+    }
+
+    public Simbol getSymbol(){
+        return new Symbol(yytoken.ordinal());
+    }   
 
 
   /**
@@ -532,7 +537,7 @@ public class AnalisadorLexico implements java_cup.runtime.Scanner {
    * @return      the next token
    * @exception   java.io.IOException  if any I/O-Error occurs
    */
-  public LexemaPOJO next() throws java.io.IOException {
+  public java_cup.runtime.Symbol next() throws java.io.IOException {
     int zzInput;
     int zzAction;
 
@@ -674,97 +679,109 @@ public class AnalisadorLexico implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { yytoken = ERROR;               return getLexema();
-            }
-          case 24: break;
-          case 2: 
-            { yytoken = BRANCO;              return getLexema();
-            }
-          case 25: break;
-          case 3: 
-            { yytoken = L_PARENTESIS;        return getLexema();
-            }
-          case 26: break;
-          case 4: 
-            { yytoken = R_PARENTESIS;        return getLexema();
+            { yytoken = ERROR;               return getSymbol();
             }
           case 27: break;
-          case 5: 
-            { yytoken = L_CHAVE;             return getLexema();
+          case 2: 
+            { yytoken = BRANCO;              return getSymbol();
             }
           case 28: break;
-          case 6: 
-            { yytoken = R_CHAVE;             return getLexema();
+          case 3: 
+            { yytoken = L_PARENTESIS;        return getSymbol();
             }
           case 29: break;
-          case 7: 
-            { yytoken = FIM_LINHA;           return getLexema();
+          case 4: 
+            { yytoken = R_PARENTESIS;        return getSymbol();
             }
           case 30: break;
-          case 8: 
-            { yytoken = ATRIBUICAO;          return getLexema();
+          case 5: 
+            { yytoken = L_CHAVE;             return getSymbol();
             }
           case 31: break;
-          case 9: 
-            { yytoken = LINHA;               return getLexema();
+          case 6: 
+            { yytoken = R_CHAVE;             return getSymbol();
             }
           case 32: break;
-          case 10: 
-            { yytoken = OPERADOR_ARITMETICO; return getLexema();
+          case 7: 
+            { yytoken = FIM_LINHA;           return getSymbol();
             }
           case 33: break;
-          case 11: 
-            { yytoken = EXPOENTE;            return getLexema();
+          case 8: 
+            { yytoken = ATRIBUICAO;          return getSymbol();
             }
           case 34: break;
-          case 12: 
-            { yytoken = NUMEROS_NATURAIS;    return getLexema();
+          case 9: 
+            { yytoken = LINHA;               return getSymbol();
             }
           case 35: break;
-          case 13: 
-            { yytoken = ID;                  return getLexema();
+          case 10: 
+            { yytoken = OPERADOR_PROD;       return getSymbol();
             }
           case 36: break;
-          case 14: 
-            { yytoken = TEXTO;               return getLexema();
+          case 11: 
+            { yytoken = OPERADOR_SOMA;       return getSymbol();
             }
           case 37: break;
-          case 15: 
-            { yytoken = OPERADOR_RELACIONAL; return getLexema();
+          case 12: 
+            { yytoken = OPERADOR_SUB;        return getSymbol();
             }
           case 38: break;
-          case 16: 
-            { yytoken = OPERADOR_LOGICO;     return getLexema();
+          case 13: 
+            { yytoken = OPERADOR_DIV;        return getSymbol();
             }
           case 39: break;
-          case 17: 
-            { yytoken = IF;                  return getLexema();
+          case 14: 
+            { yytoken = EXPOENTE;            return getSymbol();
             }
           case 40: break;
-          case 18: 
-            { yytoken = COMENTARIO;          return getLexema();
+          case 15: 
+            { yytoken = NUMEROS_NATURAIS;    return getSymbol();
             }
           case 41: break;
-          case 19: 
-            { yytoken = FOR;                 return getLexema();
+          case 16: 
+            { yytoken = VARIAVEL;            return getSymbol();
             }
           case 42: break;
-          case 20: 
-            { yytoken = FIM_COMANDO;         return getLexema();
+          case 17: 
+            { yytoken = TEXTO;               return getSymbol();
             }
           case 43: break;
-          case 21: 
-            { yytoken = NUMEROS_REIAS;       return getLexema();
+          case 18: 
+            { yytoken = OPERADOR_RELACIONAL; return getSymbol();
             }
           case 44: break;
-          case 22: 
-            { yytoken = THEN;                return getLexema();
+          case 19: 
+            { yytoken = OPERADOR_LOGICO;     return getSymbol();
             }
           case 45: break;
-          case 23: 
-            { yytoken = WHILE;               return getLexema();
+          case 20: 
+            { yytoken = IF;                  return getSymbol();
             }
           case 46: break;
+          case 21: 
+            { yytoken = COMENTARIO;          return getSymbol();
+            }
+          case 47: break;
+          case 22: 
+            { yytoken = FOR;                 return getSymbol();
+            }
+          case 48: break;
+          case 23: 
+            { yytoken = FIM_COMANDO;         return getSymbol();
+            }
+          case 49: break;
+          case 24: 
+            { yytoken = NUMEROS_REAIS;       return getSymbol();
+            }
+          case 50: break;
+          case 25: 
+            { yytoken = THEN;                return getSymbol();
+            }
+          case 51: break;
+          case 26: 
+            { yytoken = WHILE;               return getSymbol();
+            }
+          case 52: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

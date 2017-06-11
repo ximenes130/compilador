@@ -12,8 +12,7 @@ import static br.com.compiladorn.analisadorlexico.Token.*;
 %line
 %column
 %function next           /* Renomeando funçao de busca */
-%type LexemaPOJO         /* Definindo tipo de retorno da busca */
-%cup                     /* Adicionando compatibilidade com CUP */
+%cup
 
 %{
     public Token yytoken;
@@ -28,15 +27,22 @@ import static br.com.compiladorn.analisadorlexico.Token.*;
       lexema.setColuna(this.yycolumn);
       
       return lexema;
-  }
+    }
+
+    public Simbol getSymbol(){
+        return new Symbol(yytoken.ordinal());
+    }   
 %}
 
 LINHA               =  \r|\n|\r\n
-OPERADOR_ARITMETICO = 20|21|22|23       /* representando +,-,* e / respectivamente */
-ID                  = 1\d+
+OPERADOR_SOMA       = 20
+OPERADOR_SUB        = 21
+OPERADOR_PROD       = 22
+OPERADOR_DIV        = 23
+VARIAVEL                  = 1\d+
 NUMEROS_NATURAIS    = 0\d+(E[+-]\d+)?
 TEXTO               = 7(\d{3})*7        /* cada 3 digitos representa um caracter */
-NUMEROS_REIAS       = 0[0-9]+,[0-9]+
+NUMEROS_REAIS       = 0[0-9]+,[0-9]+
 EXPOENTE            = 24                
 OU                  = "||"
 E                   = "&&"
@@ -55,6 +61,7 @@ FIM_LINHA           = ";"
 ATRIBUICAO	    = "="
 FOR                 = "for"
 IF                  = "if"
+PVIRGULA            = ";"
 BRANCO		    = [\s\t\f]
 COMENTARIO          = "/*"[^]*"*/"|"//".*
 
@@ -62,27 +69,31 @@ OPERADOR_RELACIONAL = {IGUAL}|{NAO_IGUAL}|{MENOR}|{MAIOR}|{MENOR_IGUAL}|{MAIOR_I
 OPERADOR_LOGICO     = {OU}|{E}|{NAO}
 
 %%
-"fim"			{yytoken = FIM_COMANDO;         return getLexema();}
-"then"                  {yytoken = THEN;                return getLexema();}
-"if"                    {yytoken = IF;                  return getLexema();}
-"for"                   {yytoken = FOR;                 return getLexema();}
-"while"                 {yytoken = WHILE;               return getLexema();}
-{ID}                    {yytoken = ID;                  return getLexema();}
-{OPERADOR_ARITMETICO}   {yytoken = OPERADOR_ARITMETICO; return getLexema();}
-{NUMEROS_NATURAIS}      {yytoken = NUMEROS_NATURAIS;    return getLexema();}
-{TEXTO}                 {yytoken = TEXTO;               return getLexema();}
-{NUMEROS_REIAS}         {yytoken = NUMEROS_REIAS;       return getLexema();}
-{OPERADOR_LOGICO}       {yytoken = OPERADOR_LOGICO;     return getLexema();}
-{OPERADOR_RELACIONAL}   {yytoken = OPERADOR_RELACIONAL; return getLexema();}
-{EXPOENTE}              {yytoken = EXPOENTE;            return getLexema();}
-{L_PARENTESIS}          {yytoken = L_PARENTESIS;        return getLexema();}
-{R_PARENTESIS}          {yytoken = R_PARENTESIS;        return getLexema();}
-{L_CHAVE}               {yytoken = L_CHAVE;             return getLexema();}
-{R_CHAVE}               {yytoken = R_CHAVE;             return getLexema();}
-{FIM_LINHA}		{yytoken = FIM_LINHA;           return getLexema();}
-{ATRIBUICAO}		{yytoken = ATRIBUICAO;          return getLexema();}
-{BRANCO}		{yytoken = BRANCO;              return getLexema();}
-{LINHA}			{yytoken = LINHA;               return getLexema();}
-{COMENTARIO}		{yytoken = COMENTARIO;          return getLexema();}
+"fim"			{yytoken = FIM_COMANDO;         return getSymbol();}
+"then"                  {yytoken = THEN;                return getSymbol();}
+{IF}                    {yytoken = IF;                  return getSymbol();}
+{FOR}                   {yytoken = FOR;                 return getSymbol();}
+"while"                 {yytoken = WHILE;               return getSymbol();}
+{VARIAVEL}              {yytoken = VARIAVEL;            return getSymbol();}
+{OPERADOR_SOMA}         {yytoken = OPERADOR_SOMA;       return getSymbol();}
+{OPERADOR_SUB}          {yytoken = OPERADOR_SUB;        return getSymbol();}
+{OPERADOR_PROD}         {yytoken = OPERADOR_PROD;       return getSymbol();}
+{OPERADOR_DIV}          {yytoken = OPERADOR_DIV;        return getSymbol();}
+{NUMEROS_NATURAIS}      {yytoken = NUMEROS_NATURAIS;    return getSymbol();}
+{TEXTO}                 {yytoken = TEXTO;               return getSymbol();}
+{NUMEROS_REAIS}         {yytoken = NUMEROS_REAIS;       return getSymbol();}
+{OPERADOR_LOGICO}       {yytoken = OPERADOR_LOGICO;     return getSymbol();}
+{OPERADOR_RELACIONAL}   {yytoken = OPERADOR_RELACIONAL; return getSymbol();}
+{EXPOENTE}              {yytoken = EXPOENTE;            return getSymbol();}
+{L_PARENTESIS}          {yytoken = L_PARENTESIS;        return getSymbol();}
+{R_PARENTESIS}          {yytoken = R_PARENTESIS;        return getSymbol();}
+{L_CHAVE}               {yytoken = L_CHAVE;             return getSymbol();}
+{R_CHAVE}               {yytoken = R_CHAVE;             return getSymbol();}
+{FIM_LINHA}		{yytoken = FIM_LINHA;           return getSymbol();}
+{ATRIBUICAO}		{yytoken = ATRIBUICAO;          return getSymbol();}
+{PVIRGULA}		{yytoken = PVIRGULA;            return getSymbol();}
+{BRANCO}		{yytoken = BRANCO;              return getSymbol();}
+{LINHA}			{yytoken = LINHA;               return getSymbol();}
+{COMENTARIO}		{yytoken = COMENTARIO;          return getSymbol();}
 
-[^]                     {yytoken = ERROR;               return getLexema();}
+[^]                     {yytoken = ERROR;               return getSymbol();}
