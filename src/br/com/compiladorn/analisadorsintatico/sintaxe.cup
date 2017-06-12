@@ -10,7 +10,7 @@ parser code {:
 
     @Override
     public void report_error(String message, Object info)  {
-        System.out.println("Warning - " + message + " - " + ((Symbol) info).toString());
+        System.out.println("Warning - " + message + " - " + ((Symbol) info).value);
     }
 
     @Override
@@ -37,7 +37,7 @@ terminal PROGRAM_BEGIN, PROGRAM_END, VARIAVEL, NUMEROS_NATURAIS,
          BRANCO, EXPOENTE,
          FUNCAO_PARAMETRO, DECL_FUNCAO_PARAMETRO, OPERADOR_PROD, OPERADOR_DIV,
          OPERADOR_SOMA, OPERADOR_SUB, PVIRGULA, FUNCAO, OU, E, IGUAL, NAO_IGUAL,
-         MENOR, MAIOR, MENOR_IGUAL, MAIOR_IGUAL; 
+         MENOR, MAIOR, MENOR_IGUAL, MAIOR_IGUAL, NAO; 
 
 
 
@@ -55,7 +55,7 @@ non terminal programa, expressoes, expressao, chamar_funcao, decl_funcao, funcao
 precedence left L_PARENTESIS, R_PARENTESIS, 
                 VARIAVEL, IF, FOR, WHILE, FUNCAO,
                 EXPOENTE, OPERADOR_PROD, OPERADOR_DIV, OPERADOR_SOMA, OPERADOR_SUB,
-                E, OU, IGUAL, NAO_IGUAL, MENOR, MAIOR, MENOR_IGUAL, MAIOR_IGUAL,
+                E, OU, IGUAL, NAO_IGUAL, MENOR, MAIOR, MENOR_IGUAL, MAIOR_IGUAL, NAO,
                 NUMEROS_NATURAIS, TEXTO, NUMEROS_REAIS
                 ;
 
@@ -127,6 +127,7 @@ op_booleano ::= OU
                 | MAIOR
                 | MENOR_IGUAL
                 | MAIOR_IGUAL
+                | NAO
                 ;
 
 expressao_mat   ::= expressao_mat expressao_mat

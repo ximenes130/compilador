@@ -16,8 +16,15 @@ import java_cup.sym;
 %line
 %column
 
+%eofval{
+    yysym = EOF;        
+    return getSymbol();
+%eofval}
+
 %{
     public int yysym;
+    public String error = "";
+
 
     public LexemaPOJO getLexema(){
       LexemaPOJO lexema = new LexemaPOJO();
@@ -37,13 +44,15 @@ import java_cup.sym;
 
     public void printError(){
         LexemaPOJO p = getLexema();
+        String s = "Erro léxico encontrado:"
+                    + "    Texto = "      +   p.getText()
+                    + "  | Linha = "      +   p.getLinha()
+                    + "  | Coluna = "     +   p.getColuna()
+                    + "\n"
+                    ;
 
-        System.out.println("Erro léxico encontrado:"
-                + "    Texto = "      +   p.getText()
-                + "  | Caracter = "   +   p.getCaracter()
-                + "  | Linha = "      +   p.getLinha()
-                + "  | Coluna = "     +   p.getColuna()
-                );
+        error = error.concat(s);
+        System.out.println(s);
    } 
 %}
 
@@ -89,6 +98,15 @@ COMENTARIO          = "/*"[^]*"*/"|"//".*
 {TEXTO}                 {yysym = TEXTO;               return getSymbol();}
 {NUMEROS_REAIS}         {yysym = NUMEROS_REAIS;       return getSymbol();}
 {EXPOENTE}              {yysym = EXPOENTE;            return getSymbol();}
+{OU}                    {yysym = OU;                  return getSymbol();}
+{E}                     {yysym = E;                   return getSymbol();}
+{IGUAL}                 {yysym = IGUAL;               return getSymbol();}
+{NAO_IGUAL}             {yysym = NAO_IGUAL;           return getSymbol();}
+{MENOR}                 {yysym = MENOR;               return getSymbol();}
+{MAIOR}                 {yysym = MAIOR;               return getSymbol();}
+{MAIOR_IGUAL}           {yysym = MAIOR_IGUAL;         return getSymbol();}
+{MENOR_IGUAL}           {yysym = MENOR_IGUAL;         return getSymbol();}
+{NAO}                   {yysym = NAO;                 return getSymbol();}
 {L_PARENTESIS}          {yysym = L_PARENTESIS;        return getSymbol();}
 {R_PARENTESIS}          {yysym = R_PARENTESIS;        return getSymbol();}
 {L_CHAVE}               {yysym = L_CHAVE;             return getSymbol();}

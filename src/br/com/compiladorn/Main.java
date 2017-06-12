@@ -5,18 +5,11 @@
  */
 package br.com.compiladorn;
 
-import br.com.compiladorn.analisadorlexico.AnalisadorLexico;
 import br.com.compiladorn.analisadorlexico.GeradorAnalisadorLexico;
-import br.com.compiladorn.analisadorlexico.Token;
 import br.com.compiladorn.analisadorsintatico.GeradorParser;
-import br.com.compiladorn.analisadorsintatico.Parser;
-import br.com.compiladorn.gui.AnalisadorLexicoGui;
 import br.com.compiladorn.gui.MainGui;
 import java.io.File;
-import java.io.StringReader;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

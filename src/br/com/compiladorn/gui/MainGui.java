@@ -5,15 +5,25 @@
  */
 package br.com.compiladorn.gui;
 
+import br.com.compiladorn.analisadorlexico.AnalisadorLexico;
+import br.com.compiladorn.analisadorlexico.LexemaPOJO;
+import br.com.compiladorn.analisadorsintatico.Parser;
+import br.com.compiladorn.analisadorsintatico.Sym;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java_cup.runtime.Symbol;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -21,30 +31,32 @@ import java.util.logging.Logger;
  */
 public class MainGui extends javax.swing.JFrame {
 
+    JFileChooser fileChooser;
+
     /**
      * Creates new form MainGui
      */
     public MainGui() {
         initComponents();
-        
+
         String rootPath = Paths.get("").toAbsolutePath().toString();
         String subPath = "/src/br/com/compiladorn/";
-        
-        
+
         try {
             List<String> lines;
             lines = Files.readAllLines(new File(rootPath + subPath + "analisadorlexico/gramatica.lex").toPath(), StandardCharsets.UTF_8);
-            
-            String s="";
-            
-            for(int i=0 ; i<lines.size() ; i++){
-                s = s.concat(lines.get(i)+"\n");
+
+            String s = "";
+
+            for (String l : lines) {
+                s = s.concat(l + "\n");
             }
+
             jTextAreaGramatica.setText(s);
         } catch (IOException ex) {
             Logger.getLogger(MainGui.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     /**
@@ -66,17 +78,17 @@ public class MainGui extends javax.swing.JFrame {
         jTextAreaGramatica = new javax.swing.JTextArea();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        jTextAreaCodigoFonte = new javax.swing.JTextArea();
+        jButtonAnalisarLexema = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextAreaALLog = new javax.swing.JTextArea();
+        jTextAreaASLog = new javax.swing.JTextArea();
         jPanel3 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextAreaASLog1 = new javax.swing.JTextArea();
+        jTextAreaALLog = new javax.swing.JTextArea();
         jTextCodigoUrl = new javax.swing.JTextField();
         jButtonSelecionarCodigo = new javax.swing.JButton();
 
@@ -128,23 +140,28 @@ public class MainGui extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollGramatica, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+            .addComponent(jScrollGramatica, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
         );
 
         jTabbedPane2.addTab("Gramática", jPanel2);
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane1.setViewportView(jTextArea2);
+        jTextAreaCodigoFonte.setColumns(20);
+        jTextAreaCodigoFonte.setRows(5);
+        jScrollPane1.setViewportView(jTextAreaCodigoFonte);
 
-        jButton1.setText("Analisar Lexemas");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAnalisarLexema.setText("Analisar Lexemas");
+        jButtonAnalisarLexema.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                analisarLexema(evt);
             }
         });
 
         jButton2.setText("Analisar Sintáxe");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                analisarSintaxe(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -153,7 +170,7 @@ public class MainGui extends javax.swing.JFrame {
             .addComponent(jScrollPane1)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
+                .addComponent(jButtonAnalisarLexema, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
                 .addContainerGap())
@@ -164,19 +181,24 @@ public class MainGui extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(jButtonAnalisarLexema)
                     .addComponent(jButton2))
                 .addGap(6, 6, 6))
         );
 
         jTabbedPane2.addTab("Editar Código Fonte", jPanel5);
 
-        jButton3.setText("Analisar Lexemas");
+        jButton3.setText("Analisar Sintaxe");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                analisarSintaxe(evt);
+            }
+        });
 
-        jTextAreaALLog.setEditable(false);
-        jTextAreaALLog.setColumns(20);
-        jTextAreaALLog.setRows(5);
-        jScrollPane2.setViewportView(jTextAreaALLog);
+        jTextAreaASLog.setEditable(false);
+        jTextAreaASLog.setColumns(20);
+        jTextAreaASLog.setRows(5);
+        jScrollPane2.setViewportView(jTextAreaASLog);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -199,12 +221,17 @@ public class MainGui extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Analisador Sintático", jPanel4);
 
-        jButton4.setText("Analisar Sintáxe");
+        jButton4.setText("Analisar Lexemas");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                analisarLexema(evt);
+            }
+        });
 
-        jTextAreaASLog1.setEditable(false);
-        jTextAreaASLog1.setColumns(20);
-        jTextAreaASLog1.setRows(5);
-        jScrollPane3.setViewportView(jTextAreaASLog1);
+        jTextAreaALLog.setEditable(false);
+        jTextAreaALLog.setColumns(20);
+        jTextAreaALLog.setRows(5);
+        jScrollPane3.setViewportView(jTextAreaALLog);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -231,6 +258,11 @@ public class MainGui extends javax.swing.JFrame {
         jTextCodigoUrl.setText("Endereço de Código Fonte");
 
         jButtonSelecionarCodigo.setText("Ler Código de Arquivo");
+        jButtonSelecionarCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSelecionarCodigoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -259,17 +291,82 @@ public class MainGui extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void jButtonSelecionarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelecionarCodigoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.setFileFilter(new FileNameExtensionFilter(".txt ou .n", "txt", "n"));
+        int i = fileChooser.showSaveDialog(null);
+        String resul = "";
+
+        try (Scanner scanner = new Scanner(fileChooser.getSelectedFile())) {
+            while (scanner.hasNextLine()) {
+                resul = resul + scanner.nextLine() + "\n";
+            }
+                
+            jTextCodigoUrl.setText(fileChooser.getSelectedFile().getPath());
+
+            jTextAreaCodigoFonte.setText(resul);
+
+            analisarLexema(evt);
+            //analisarSintaxe(evt);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(MainGui.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jButtonSelecionarCodigoActionPerformed
+
+    private void analisarLexema(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analisarLexema
+        String resultado = "";
+        
+        AnalisadorLexico analisadoLexico;
+        analisadoLexico = new AnalisadorLexico(new StringReader(jTextAreaCodigoFonte.getText()));
+        
+        while (true) {
+            try {
+                analisadoLexico.next_token();
+            } catch (IOException ex) {
+                Logger.getLogger(MainGui.class.getName()).log(Level.SEVERE, null, ex);
+                return;
+            }
+            LexemaPOJO lexema = analisadoLexico.getLexema();
+            
+            if (lexema.getToken() == Sym.EOF) {
+                resultado = resultado.concat(analisadoLexico.error);
+                
+                //System.out.println(resultado);
+                jTextAreaALLog.setText(resultado);
+
+                return;
+            }
+            
+            if(lexema.getToken() != Sym.BRANCO){
+                resultado = resultado.concat("Token:"+ Sym.terminalNames[lexema.getToken()]
+                        +" -  Lexema:"+ lexema.getText()
+                        +" -  Linha:"+ lexema.getLinha()
+                        +" -  Coluna:"+ lexema.getColuna() +"\n");
+            }
+        }
+    }//GEN-LAST:event_analisarLexema
+
+    private void analisarSintaxe(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analisarSintaxe
+        try {
+            Parser p = new Parser(new AnalisadorLexico(new StringReader(jTextAreaCodigoFonte.getText())));
+            Symbol result = p.parse();
+
+            System.out.println("Compilacao concluida com sucesso..." + result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_analisarSintaxe
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonAnalisarLexema;
     private javax.swing.JButton jButtonSelecionarCodigo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -284,9 +381,9 @@ public class MainGui extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextAreaALLog;
-    private javax.swing.JTextArea jTextAreaASLog1;
+    private javax.swing.JTextArea jTextAreaASLog;
+    private javax.swing.JTextArea jTextAreaCodigoFonte;
     private javax.swing.JTextArea jTextAreaGramatica;
     private javax.swing.JTextField jTextCodigoUrl;
     // End of variables declaration//GEN-END:variables
