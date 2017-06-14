@@ -5,18 +5,11 @@
  */
 package br.com.compiladorn;
 
-import br.com.compiladorn.analisadorlexico.AnalisadorLexico;
 import br.com.compiladorn.analisadorlexico.GeradorAnalisadorLexico;
-import br.com.compiladorn.analisadorlexico.Token;
 import br.com.compiladorn.analisadorsintatico.GeradorParser;
-import br.com.compiladorn.analisadorsintatico.Parser;
-import br.com.compiladorn.gui.AnalisadorLexicoGui;
 import br.com.compiladorn.gui.MainGui;
 import java.io.File;
-import java.io.StringReader;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -28,7 +21,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("\n\n------  Gerando Aanalisador Léxico   ------\n");
+ /*       System.out.println("\n\n------  Gerando Aanalisador Léxico   ------\n");
         GeradorAnalisadorLexico.gerar(new File("/home/ximenes130/Dev/compiladores/compilador/src/br/com/compiladorn/analisadorlexico/gramatica.lex"));
 
         System.out.println("\n\n------  Gerando Aanalisador Sintático   ------\n");
@@ -36,7 +29,7 @@ public class Main {
             GeradorParser.gerar(new File("/home/ximenes130/Dev/compiladores/compilador/src/br/com/compiladorn/analisadorsintatico/sintaxe.cup"));
         } catch (Exception ex) {
             System.out.println(Arrays.toString(ex.getStackTrace()));
-        }
+        }*/
 /*
         try {
             Parser p = new Parser(new AnalisadorLexico(new StringReader("01 20 02;")));
