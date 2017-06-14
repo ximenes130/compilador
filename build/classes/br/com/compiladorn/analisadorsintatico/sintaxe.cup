@@ -1,5 +1,7 @@
 package br.com.compiladorn.analisadorsintatico;
 import java_cup.runtime.Symbol;
+import java.util.List;
+import java.util.ArrayList;
 
 parser code {:
 
@@ -7,34 +9,48 @@ parser code {:
     public int coluna;
     public String texto;
     public String token;
+    private List<String> erros = new ArrayList<String>();
+    private List<String> log = new ArrayList<String>();
+    java_cup.runtime.Symbol symAtual;
+
+    public List<String> getErros(){
+        return erros;
+    }
+
+    public List<String> getLog(){
+        return log;
+    }
 
     @Override
-    public void report_error(String message, Object info)  {
-        System.out.println("Warning - " + message + " - " + ((Symbol) info).value);
+    public void report_error(String message, Object info){
+        erros.add("Erro("+erros.size()+") Warning - " + message + " - Token - " + Sym.terminalNames[((Symbol) info).sym]);
     }
 
     @Override
     public void report_fatal_error(String message, Object info)  {
-        System.out.println("Error - " + message + " - " + info.toString());
-        System.exit(-1);
+        erros.add("Erro("+erros.size()+") Error - " + message + " - Token - " + Sym.terminalNames[((Symbol) info).sym]);
     }
 
 :};
 
-init with {: 
-    linha = 0;
-    coluna = 0;
-    texto = "";
-    token = "";
- :};
+scan with {: 
+    symAtual = getScanner().next_token();
+
+    log.add("Log("+log.size()
+            +"): Token = "+ Sym.terminalNames[symAtual.sym]
+            +" - Left = "+ symAtual.left
+            +" - Right = "+ symAtual.right
+            +" - Parse State"+ symAtual.parse_state
+    );
+
+    return getScanner().next_token();
+:};
 
 
 /* ------------------------ Definindo simbolos terminais ------------------------ */
 
-terminal PROGRAM_BEGIN, PROGRAM_END, VARIAVEL, NUMEROS_NATURAIS, 
-         TEXTO, NUMEROS_REAIS, ELSE, L_PARENTESIS,
-         R_PARENTESIS, L_CHAVE, R_CHAVE, ATRIBUICAO, IF, FOR, WHILE, 
-         BRANCO, EXPOENTE,
+terminal VARIAVEL, NUMEROS_NATURAIS, EXPOENTE, TEXTO, NUMEROS_REAIS, ELSE, 
+         L_PARENTESIS, R_PARENTESIS, L_CHAVE, R_CHAVE, ATRIBUICAO, IF, FOR, WHILE, 
          FUNCAO_PARAMETRO, DECL_FUNCAO_PARAMETRO, OPERADOR_PROD, OPERADOR_DIV,
          OPERADOR_SOMA, OPERADOR_SUB, PVIRGULA, FUNCAO, OU, E, IGUAL, NAO_IGUAL,
          MENOR, MAIOR, MENOR_IGUAL, MAIOR_IGUAL, NAO; 
@@ -66,9 +82,9 @@ precedence left L_PARENTESIS, R_PARENTESIS,
 start with programa;
 
 
-programa    ::= PROGRAM_BEGIN expressoes PROGRAM_END;
+programa    ::= expressoes;
 
-expressoes  ::=   expressoes expressao PVIRGULA
+expressoes  ::=   expressao PVIRGULA expressoes
                 | expressao PVIRGULA
                 ;
 
@@ -91,14 +107,12 @@ decl_repeticao  ::= FOR L_PARENTESIS decl_variavel PVIRGULA expressao_booleana P
                     | WHILE L_PARENTESIS expressao_booleana R_PARENTESIS L_CHAVE expressoes R_CHAVE
                     ;
 
-funcao_parametros ::= funcao_parametros BRANCO FUNCAO_PARAMETRO
+funcao_parametros ::= funcao_parametros FUNCAO_PARAMETRO
                | FUNCAO_PARAMETRO
-               | BRANCO
                ;
 
 decl_funcao_parametros ::= data_tipo DECL_FUNCAO_PARAMETRO PVIRGULA decl_funcao_parametros 
                     | data_tipo DECL_FUNCAO_PARAMETRO
-                    | BRANCO
                     ;
 
 decl_condicional ::= decl_condicional condicional
@@ -127,12 +141,11 @@ op_booleano ::= OU
                 | MAIOR
                 | MENOR_IGUAL
                 | MAIOR_IGUAL
-                | NAO
+                | NAO expressao_booleana
+                | NAO op_booleano
                 ;
 
-expressao_mat   ::= expressao_mat expressao_mat
-                    | expressao op_mat expressao
-                    ;
+expressao_mat   ::= expressao op_mat expressao;
 
 op_mat   ::= OPERADOR_SOMA
             | OPERADOR_SUB 

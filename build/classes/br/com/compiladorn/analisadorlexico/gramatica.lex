@@ -113,7 +113,7 @@ COMENTARIO          = "/*"[^]*"*/"|"//".*
 {R_CHAVE}               {yysym = R_CHAVE;             return getSymbol();}
 {ATRIBUICAO}		{yysym = ATRIBUICAO;          return getSymbol();}
 {PVIRGULA}		{yysym = PVIRGULA;            return getSymbol();}
-{BRANCO}		{yysym = BRANCO;              return getSymbol();}
+{BRANCO}		{}
 {COMENTARIO}		{}
 
 [^]                     {printError();}

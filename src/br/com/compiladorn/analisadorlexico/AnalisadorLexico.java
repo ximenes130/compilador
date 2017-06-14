@@ -72,9 +72,9 @@ public class AnalisadorLexico implements java_cup.runtime.Scanner {
     "\1\0\10\1\1\2\1\3\1\4\1\5\1\6\2\1"+
     "\1\7\1\10\2\1\1\11\1\12\1\13\1\14\1\15"+
     "\2\16\1\17\1\0\1\20\1\21\1\22\1\23\1\24"+
-    "\1\25\1\26\1\27\1\30\1\31\1\0\1\32\1\33"+
-    "\5\0\1\34\3\0\1\35\1\0\1\33\1\0\1\16"+
-    "\1\36";
+    "\1\25\1\26\1\27\1\30\1\31\1\0\1\32\1\10"+
+    "\5\0\1\33\3\0\1\34\1\0\1\10\1\0\1\16"+
+    "\1\35";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[57];
@@ -698,123 +698,119 @@ public class AnalisadorLexico implements java_cup.runtime.Scanner {
           case 1: 
             { printError();
             }
-          case 31: break;
+          case 30: break;
           case 2: 
             { yysym = L_PARENTESIS;        return getSymbol();
             }
-          case 32: break;
+          case 31: break;
           case 3: 
             { yysym = R_PARENTESIS;        return getSymbol();
             }
-          case 33: break;
+          case 32: break;
           case 4: 
             { yysym = L_CHAVE;             return getSymbol();
             }
-          case 34: break;
+          case 33: break;
           case 5: 
             { yysym = R_CHAVE;             return getSymbol();
             }
-          case 35: break;
+          case 34: break;
           case 6: 
             { yysym = ATRIBUICAO;          return getSymbol();
             }
-          case 36: break;
+          case 35: break;
           case 7: 
             { yysym = PVIRGULA;            return getSymbol();
             }
-          case 37: break;
+          case 36: break;
           case 8: 
-            { yysym = BRANCO;              return getSymbol();
+            { 
             }
-          case 38: break;
+          case 37: break;
           case 9: 
             { yysym = OPERADOR_PROD;       return getSymbol();
             }
-          case 39: break;
+          case 38: break;
           case 10: 
             { yysym = OPERADOR_SOMA;       return getSymbol();
             }
-          case 40: break;
+          case 39: break;
           case 11: 
             { yysym = OPERADOR_SUB;        return getSymbol();
             }
-          case 41: break;
+          case 40: break;
           case 12: 
             { yysym = OPERADOR_DIV;        return getSymbol();
             }
-          case 42: break;
+          case 41: break;
           case 13: 
             { yysym = EXPOENTE;            return getSymbol();
             }
-          case 43: break;
+          case 42: break;
           case 14: 
             { yysym = NUMEROS_NATURAIS;    return getSymbol();
             }
-          case 44: break;
+          case 43: break;
           case 15: 
             { yysym = VARIAVEL;            return getSymbol();
             }
-          case 45: break;
+          case 44: break;
           case 16: 
             { yysym = TEXTO;               return getSymbol();
             }
-          case 46: break;
+          case 45: break;
           case 17: 
             { yysym = MENOR;               return getSymbol();
             }
-          case 47: break;
+          case 46: break;
           case 18: 
             { yysym = IGUAL;               return getSymbol();
             }
-          case 48: break;
+          case 47: break;
           case 19: 
             { yysym = NAO_IGUAL;           return getSymbol();
             }
-          case 49: break;
+          case 48: break;
           case 20: 
             { yysym = MAIOR;               return getSymbol();
             }
-          case 50: break;
+          case 49: break;
           case 21: 
             { yysym = MAIOR_IGUAL;         return getSymbol();
             }
-          case 51: break;
+          case 50: break;
           case 22: 
             { yysym = MENOR_IGUAL;         return getSymbol();
             }
-          case 52: break;
+          case 51: break;
           case 23: 
             { yysym = NAO;                 return getSymbol();
             }
-          case 53: break;
+          case 52: break;
           case 24: 
             { yysym = OU;                  return getSymbol();
             }
-          case 54: break;
+          case 53: break;
           case 25: 
             { yysym = E;                   return getSymbol();
             }
-          case 55: break;
+          case 54: break;
           case 26: 
             { yysym = IF;                  return getSymbol();
             }
-          case 56: break;
+          case 55: break;
           case 27: 
-            { 
-            }
-          case 57: break;
-          case 28: 
             { yysym = FOR;                 return getSymbol();
             }
-          case 58: break;
-          case 29: 
+          case 56: break;
+          case 28: 
             { yysym = NUMEROS_REAIS;       return getSymbol();
             }
-          case 59: break;
-          case 30: 
+          case 57: break;
+          case 29: 
             { yysym = WHILE;               return getSymbol();
             }
-          case 60: break;
+          case 58: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

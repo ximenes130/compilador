@@ -15,12 +15,13 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java_cup.runtime.ComplexSymbolFactory;
+import java_cup.runtime.ScannerBuffer;
 import java_cup.runtime.Symbol;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -291,7 +292,7 @@ public class MainGui extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void jButtonSelecionarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelecionarCodigoActionPerformed
 
         fileChooser = new JFileChooser();
@@ -304,7 +305,7 @@ public class MainGui extends javax.swing.JFrame {
             while (scanner.hasNextLine()) {
                 resul = resul + scanner.nextLine() + "\n";
             }
-                
+
             jTextCodigoUrl.setText(fileChooser.getSelectedFile().getPath());
 
             jTextAreaCodigoFonte.setText(resul);
@@ -319,10 +320,10 @@ public class MainGui extends javax.swing.JFrame {
 
     private void analisarLexema(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analisarLexema
         String resultado = "";
-        
+
         AnalisadorLexico analisadoLexico;
         analisadoLexico = new AnalisadorLexico(new StringReader(jTextAreaCodigoFonte.getText()));
-        
+
         while (true) {
             try {
                 analisadoLexico.next_token();
@@ -331,34 +332,46 @@ public class MainGui extends javax.swing.JFrame {
                 return;
             }
             LexemaPOJO lexema = analisadoLexico.getLexema();
-            
+
             if (lexema.getToken() == Sym.EOF) {
                 resultado = resultado.concat(analisadoLexico.error);
-                
-                //System.out.println(resultado);
+
                 jTextAreaALLog.setText(resultado);
 
                 return;
             }
-            
-            if(lexema.getToken() != Sym.BRANCO){
-                resultado = resultado.concat("Token:"+ Sym.terminalNames[lexema.getToken()]
-                        +" -  Lexema:"+ lexema.getText()
-                        +" -  Linha:"+ lexema.getLinha()
-                        +" -  Coluna:"+ lexema.getColuna() +"\n");
-            }
+
+            resultado = resultado.concat("Token:" + Sym.terminalNames[lexema.getToken()]
+                    + " -  Lexema:" + lexema.getText()
+                    + " -  Linha:" + lexema.getLinha()
+                    + " -  Coluna:" + lexema.getColuna() + "\n");
         }
     }//GEN-LAST:event_analisarLexema
 
     private void analisarSintaxe(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analisarSintaxe
-        try {
-            Parser p = new Parser(new AnalisadorLexico(new StringReader(jTextAreaCodigoFonte.getText())));
-            Symbol result = p.parse();
+        String log = new String();
+        AnalisadorLexico al = new AnalisadorLexico(new StringReader(jTextAreaCodigoFonte.getText()));
+        ScannerBuffer buffer = new ScannerBuffer(al);
+        Parser p = new Parser(buffer, new ComplexSymbolFactory());
+        Symbol result;
 
-            System.out.println("Compilacao concluida com sucesso..." + result);
+        try {
+            result = p.parse();
         } catch (Exception e) {
-            e.printStackTrace();
         }
+
+        for (String s : p.getLog()) {
+            log = log.concat(s + "\n");
+        }
+
+        for (String s : p.getErros()) {
+            log = log.concat(s + "\n");
+        }
+        
+        jTextAreaASLog.setText(log);
+        
+System.out.println(buffer.getBuffered());
+        
     }//GEN-LAST:event_analisarSintaxe
 
 
