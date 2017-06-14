@@ -3,7 +3,7 @@ Compilador da linguagem de programação que é escrita com números para a disc
 
 #### Arquivos importantes
 - [CompiladorN.jar](/dist/CompiladorN.jar)
-- [Gramatica.lex](src/br/com/compiladorn/analisadorsintatico/gramatica.lex)
+- [Gramatica.lex](src/br/com/compiladorn/analisadorlexico/gramatica.lex)
 - [sintaxe.cup](src/br/com/compiladorn/analisadorsintatico/sintaxe.cup)
 
 
@@ -127,7 +127,7 @@ COMENTARIO          = "/*"[^]*"*/"|"//".*
 ```
 ----
 ###### sintaxe
-```
+```CUP
 package br.com.compiladorn.analisadorsintatico;
 import java_cup.runtime.Symbol;
 import java.util.List;
@@ -233,7 +233,7 @@ funcao_parametros ::= funcao_parametros FUNCAO_PARAMETRO
                | FUNCAO_PARAMETRO
                ;
 
-decl_funcao_parametros ::= data_tipo DECL_FUNCAO_PARAMETRO PVIRGULA decl_funcao_parametros 
+decl_funcao_parametros ::= data_tipo DECL_FUNCAO_PARAMETRO PVIRGULA decl_funcao_parametros
                     | data_tipo DECL_FUNCAO_PARAMETRO
                     ;
 

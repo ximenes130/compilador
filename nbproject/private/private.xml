@@ -5,6 +5,8 @@
         <group>
             <file>file:/home/ximenes130/Dev/compiladores/compilador/src/br/com/compiladorn/analisadorsintatico/Sym.java</file>
             <file>file:/home/ximenes130/Dev/compiladores/compilador/src/br/com/compiladorn/gui/MainGui.java</file>
+            <file>file:/home/ximenes130/Dev/compiladores/compilador/src/br/com/compiladorn/Main.java</file>
+            <file>file:/home/ximenes130/Dev/compiladores/compilador/src/br/com/compiladorn/analisadorlexico/gramatica.lex</file>
             <file>file:/home/ximenes130/Dev/compiladores/compilador/src/br/com/compiladorn/analisadorsintatico/sintaxe.cup</file>
             <file>file:/home/ximenes130/Dev/compiladores/compilador/src/br/com/compiladorn/analisadorsintatico/Parser.java</file>
         </group>
